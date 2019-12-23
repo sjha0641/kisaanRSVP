@@ -29,11 +29,11 @@ public class FarmerRepository {
 		return (Login) q.getSingleResult();
 	}
 	
-	public Farmer forgotPassword(String email) {
-		Query q = entityManager.createQuery("select f from Farmer f where f.email=:em");
+	public Login forgotPassword(String email) {
+		Query q = entityManager.createQuery("select l from Login l where l.email=:em");
 		q.setParameter("em", email);
-		Farmer farmer=(Farmer) q.getSingleResult();
-		return farmer;
+		Login login=(Login) q.getSingleResult();
+		return login;
 	}
 
 	@Transactional

@@ -12,5 +12,6 @@ Enter email:<input type="email" name="email" placeholder="Email">
 Enter password:<input type="password" name="password" placeholder="password">
 <button type="submit">Login</button>
 </form>
+<a href="forgotpasswordfarmer.jsp">forgot password</a>
 </body>
 </html>

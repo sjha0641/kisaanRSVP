@@ -9,8 +9,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.rsvp.entity.Crop;
 import com.rsvp.entity.DetailsFarmer;
 import com.rsvp.entity.Farmer;
 import com.rsvp.entity.Login;
@@ -18,6 +20,7 @@ import com.rsvp.exception.kisaanException;
 import com.rsvp.services.FarmerServices;
 
 @Controller
+@SessionAttributes("farmerID")
 public class FarmerController {
 
 	@Autowired
@@ -27,16 +30,21 @@ public class FarmerController {
 	Login loginFarmer;
 
 	@RequestMapping(path = "/loginfarmers.rsvp", method = RequestMethod.POST)
-	public String loginFarmer(Login login, ModelMap model) throws kisaanException {
-
+	public String loginFarmer(Login login, ModelMap model) throws kisaanException  {
 		loginFarmer = farmerServices.login(login.getEmail(), login.getPassword());
-		if (loginFarmer != null) {
+		if (loginFarmer!= null) {
 			model.put("logincredentials", loginFarmer);
 			return "farmerdashbord.jsp";
 		} else {
 			model.put("invalidcredentials", "failed to login");
 			return "Failure.jsp";
 		}
+	}
+	@RequestMapping(path = "/forgotpasswordFarmer.rsvp",method = RequestMethod.POST)
+	public String forgotPassword(@RequestParam("email") String emial,ModelMap model) throws kisaanException{
+		loginFarmer= farmerServices.forgotPassword(emial);
+		model.put("passwordFarmer", loginFarmer);
+		return "gotpasswordbackfarmer.jsp";
 	}
 
 	@RequestMapping(path = "/registrationFarmer.rsvp", method = RequestMethod.POST)
@@ -64,6 +72,12 @@ public class FarmerController {
 		detailsFarmer.setFarmerCertificate(farmer.getFarmerFullName()+ farmerPanfile.getOriginalFilename());
 		farmerServices.saveFarmer(farmer, login, detailsFarmer);
 		return "displaysusscess.jsp";
+	}
+	
+	@RequestMapping(path = "/sellyourcrop.rsvp", method = RequestMethod.POST)
+	public String sellYourCrop(Crop crop,ModelMap model,@RequestParam("soilphcertificateFile") MultipartFile cropSoilPHCertificate) {
+		//farmerServices.placeSellRequest(crop,farmerId);
+		return "";
 	}
 
 }

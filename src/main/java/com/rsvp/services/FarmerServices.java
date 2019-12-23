@@ -32,7 +32,7 @@ public class FarmerServices {
 		}
 	}
 	
-	public Farmer forgotPassword(String email) throws kisaanException {
+	public Login forgotPassword(String email) throws kisaanException {
 		try {
 		return farmerRepository.forgotPassword(email);
 		}catch (Exception e) {

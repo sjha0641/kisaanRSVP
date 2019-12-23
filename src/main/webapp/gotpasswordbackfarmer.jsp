@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
-<h1>${ logincredentials.email }</h1>
-<a href="sellyourcropfarmer.jsp">Sell Your Crop here</a>
+<h1>${ passwordFarmer.password }</h1>
+<a href="FarmerLogin.jsp">Login</a>
 </body>
 </html>
