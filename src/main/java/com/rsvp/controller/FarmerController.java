@@ -2,6 +2,7 @@ package com.rsvp.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,33 +19,48 @@ import com.rsvp.entity.Farmer;
 import com.rsvp.entity.Login;
 import com.rsvp.exception.kisaanException;
 import com.rsvp.services.FarmerServices;
+import com.rsvp.services.SendMailService;
 
 @Controller
-@SessionAttributes("farmerID")
+@SessionAttributes({"farmerInFo","logincredentials"})
 public class FarmerController {
 
 	@Autowired
 	private FarmerServices farmerServices;
-
+	
 	@Autowired
-	Login loginFarmer;
-
+	private SendMailService sendMailService;
+	
 	@RequestMapping(path = "/loginfarmers.rsvp", method = RequestMethod.POST)
-	public String loginFarmer(Login login, ModelMap model) throws kisaanException  {
-		loginFarmer = farmerServices.login(login.getEmail(), login.getPassword());
-		if (loginFarmer!= null) {
+	public String loginFarmer(Login login, ModelMap model) {
+		Login loginFarmer;
+		try {
+			loginFarmer = farmerServices.login(login.getEmail(), login.getPassword());
+			Farmer farmer=farmerServices.fetchFarmerInfo(loginFarmer.getUserId());
 			model.put("logincredentials", loginFarmer);
+			model.put("farmerInFo", farmer);
 			return "farmerdashbord.jsp";
-		} else {
+		} catch (kisaanException e) {
 			model.put("invalidcredentials", "failed to login");
-			return "Failure.jsp";
+			return "FarmerLogin.jsp";
 		}
+		
 	}
+	
+	@RequestMapping(path = "/resetpasswordfarmer.rsvp", method = RequestMethod.POST)
+	public String resetpassword(Login login) {
+		farmerServices.resetpassword(login);
+		return "FarmerLogin.jsp";
+		
+	}
+	
 	@RequestMapping(path = "/forgotpasswordFarmer.rsvp",method = RequestMethod.POST)
 	public String forgotPassword(@RequestParam("email") String emial,ModelMap model) throws kisaanException{
-		loginFarmer= farmerServices.forgotPassword(emial);
+		Login loginFarmer= farmerServices.forgotPassword(emial);
+		//sendMailService.send(loginFarmer.getEmail(), "your password is reterived",loginFarmer.password );
+		//sendMailService.send(loginFarmer.getEmail(), "your password is reterived", "http://localhost:9090/kisaanRSVP/resetpasswordsample.jsp");
 		model.put("passwordFarmer", loginFarmer);
-		return "gotpasswordbackfarmer.jsp";
+		return "resetpasswordsample.jsp";
 	}
 
 	@RequestMapping(path = "/registrationFarmer.rsvp", method = RequestMethod.POST)
@@ -75,9 +91,26 @@ public class FarmerController {
 	}
 	
 	@RequestMapping(path = "/sellyourcrop.rsvp", method = RequestMethod.POST)
-	public String sellYourCrop(Crop crop,ModelMap model,@RequestParam("soilphcertificateFile") MultipartFile cropSoilPHCertificate) {
-		//farmerServices.placeSellRequest(crop,farmerId);
-		return "";
+	public String sellYourCrop(Login login,Crop crop,ModelMap model,@RequestParam("soilphcertificateFile") MultipartFile cropSoilPHCertificate) throws kisaanException {
+		String pathSoilPHCertificate = "d:/uploads/SoilPHCertificate/";
+		String SoilPHCertificate = pathSoilPHCertificate + login.getEmail()+cropSoilPHCertificate.getOriginalFilename();
+		try {
+			cropSoilPHCertificate.transferTo(new File(pathSoilPHCertificate));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Farmer farmer=(Farmer) model.get("farmerInFo");
+		crop.setCropSoilPHCertificate(login.getEmail()+cropSoilPHCertificate.getOriginalFilename());
+		farmerServices.placeSellRequest(crop,farmer.getFarmerId());
+		return "farmerdashbord.jsp";
+	}
+	
+	@RequestMapping(path = "/viewsoldcrophistory.rsvp")
+	public String viewSoldCropHistory(ModelMap model) throws kisaanException {
+		Farmer farmer=(Farmer) model.get("farmerInFo");
+		List<Crop> list=farmerServices.viewSoldCropHistory(farmer.getFarmerId());
+		model.put("ListOfCrops",list);
+		return "viewsoldcrophistory.jsp";
 	}
 
 }

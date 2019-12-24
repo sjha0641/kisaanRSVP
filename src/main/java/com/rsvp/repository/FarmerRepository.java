@@ -29,6 +29,19 @@ public class FarmerRepository {
 		return (Login) q.getSingleResult();
 	}
 	
+	public Farmer fetchFarmerInfo(int userId) {
+		Query q= entityManager.createQuery("select f from Farmer f where f.login.userId=:lid");
+		q.setParameter("lid", userId);
+		return (Farmer) q.getSingleResult();
+	}
+	
+	@Transactional
+	public Login resetpassword(Login login) {
+		Login loginr=entityManager.find(Login.class,login.getUserId());
+		loginr.setPassword(login.getPassword());
+		return entityManager.merge(loginr);
+		
+	}
 	public Login forgotPassword(String email) {
 		Query q = entityManager.createQuery("select l from Login l where l.email=:em");
 		q.setParameter("em", email);
@@ -50,7 +63,7 @@ public class FarmerRepository {
 		crop.setCropActiveStatus("no");
 		crop.setCropCurrentBid(0);
 		crop.setCropSoldPrice(0);
-		crop.setCropSoldStats("no");	
+		crop.setCropSoldStatus("no");	
 		entityManager.persist(crop);
 	}
 
@@ -73,7 +86,7 @@ public class FarmerRepository {
 	}
 	
 	public List<Crop> viewSoldCropHistory(int farmerId) {
-		Query q=entityManager.createQuery("select c from Crop c where c.Farmer.farmerId=:fid and c.cropSoldStats=:css");
+		Query q=entityManager.createQuery("select c from Crop c where c.farmerCrop.farmerId=:fid and c.cropSoldStatus=:css");
 		q.setParameter("fid", farmerId);
 		q.setParameter("css", "yes");
 		List<Crop> list=q.getResultList();

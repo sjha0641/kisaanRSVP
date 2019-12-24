@@ -32,6 +32,14 @@ public class FarmerServices {
 		}
 	}
 	
+	public Login resetpassword(Login login) {
+		return farmerRepository.resetpassword(login);
+		
+	}
+	public Farmer fetchFarmerInfo(int userId) {
+		return farmerRepository.fetchFarmerInfo(userId);
+	}
+	
 	public Login forgotPassword(String email) throws kisaanException {
 		try {
 		return farmerRepository.forgotPassword(email);
@@ -56,7 +64,7 @@ public class FarmerServices {
 	
 	public void placeSellRequest(Crop crop,int farmerId) throws kisaanException {
 		try {
-		farmerRepository.placeSellRequest(crop, farmerId);
+		farmerRepository.placeSellRequest(crop,farmerId);
 		}catch (Exception e) {
 			throw new kisaanException("couldn't place sell request");
 		}
@@ -77,6 +85,8 @@ public class FarmerServices {
 			throw new kisaanException("couldnt claim insurance");
 		}
 	}
+	
+	
 	
 	public List<Crop> viewSoldCropHistory(int farmerId) throws kisaanException{
 		try {

@@ -123,11 +123,11 @@ public class Crop {
 		this.cropActiveStatus = cropActiveStatus;
 	}
 
-	public String getCropSoldStats() {
+	public String getCropSoldStatus() {
 		return cropSoldStatus;
 	}
 
-	public void setCropSoldStats(String cropSoldStatus) {
+	public void setCropSoldStatus(String cropSoldStatus) {
 		this.cropSoldStatus = cropSoldStatus;
 	}
 
