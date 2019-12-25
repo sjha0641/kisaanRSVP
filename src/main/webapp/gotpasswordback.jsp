@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>${ passwordFarmer.password }</h1>
-<a href="FarmerLogin.jsp">Login</a>
+<h1>${ passwordGeneral.password }</h1>
+<a href="HomePage.jsp">Login</a>
 </body>
 </html>

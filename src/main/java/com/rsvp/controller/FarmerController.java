@@ -42,7 +42,7 @@ public class FarmerController {
 			return "farmerdashbord.jsp";
 		} catch (kisaanException e) {
 			model.put("invalidcredentials", "failed to login");
-			return "FarmerLogin.jsp";
+			return "typeofuser.jsp";
 		}
 		
 	}
@@ -50,17 +50,17 @@ public class FarmerController {
 	@RequestMapping(path = "/resetpasswordfarmer.rsvp", method = RequestMethod.POST)
 	public String resetpassword(Login login) {
 		farmerServices.resetpassword(login);
-		return "FarmerLogin.jsp";
+		return "typeofuser.jsp";
 		
 	}
 	
-	@RequestMapping(path = "/forgotpasswordFarmer.rsvp",method = RequestMethod.POST)
+	@RequestMapping(path = "/forgotpasswordgeneral.rsvp",method = RequestMethod.POST)
 	public String forgotPassword(@RequestParam("email") String emial,ModelMap model) throws kisaanException{
-		Login loginFarmer= farmerServices.forgotPassword(emial);
+		Login loginGeneral= farmerServices.forgotPassword(emial);
 		//sendMailService.send(loginFarmer.getEmail(), "your password is reterived",loginFarmer.password );
 		//sendMailService.send(loginFarmer.getEmail(), "your password is reterived", "http://localhost:9090/kisaanRSVP/resetpasswordsample.jsp");
-		model.put("passwordFarmer", loginFarmer);
-		return "resetpasswordsample.jsp";
+		model.put("passwordGeneral", loginGeneral);
+		return "gotpasswordback.jsp";
 	}
 
 	@RequestMapping(path = "/registrationFarmer.rsvp", method = RequestMethod.POST)

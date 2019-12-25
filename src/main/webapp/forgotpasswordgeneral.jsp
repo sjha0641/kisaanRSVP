@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="forgotpasswordFarmer.rsvp" method="post">
+<form action="forgotpasswordgeneral.rsvp" method="post">
 Enter your email to reterive your password
 <input type="email" name="email" placeholder="enter registred email">
 <button type="submit">Reterview password</button>
