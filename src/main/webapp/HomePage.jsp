@@ -69,10 +69,10 @@ button:hover {
 	opacity: 0.8;
 }
 /* Extra styles for the cancel button */
-.cancelbtn {
+.re {
 	width: auto;
 	padding: 10px 18px;
-	background-color: #f44336;
+	background-color: #4CAF50;
 }
 
 /* Center the image and position the close button */
@@ -163,7 +163,9 @@ to {
 }
 
 }
-
+body {
+background-color: #4CAF50;
+}
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {
 	span.psw {
@@ -189,7 +191,7 @@ to {
 }
 
 .tablink:hover {
-  background-color: #777;
+  background-color: #4CAF50;
 }
 
 /* Style the tab content */
@@ -200,17 +202,16 @@ to {
   text-align: center;
 }
 
-#AboutUs {background-color:green;}
-#ContactUs {background-color:green;}
-#HomePage {background-color:green;}
-#Login {background-color:green;}
+#AboutUs {background-color:#4CAF50;}
+#ContactUs {background-color:#4CAF50;}
+#HomePage {background-color:#4CAF50;}
+#Login {background-color:#4CAF50;}
 
 
 </style>
 </head>
 <body>
-
-
+<div>
 <button class="tablink" onclick="openFunction('HomePage', this, 'green')" >Home Page</button>
 <button class="tablink" onclick="openFunction('AboutUs', this, 'green')" >AboutUs</button>
 <button class="tablink" onclick="openFunction('Login', this, 'green')">Login</button>
@@ -237,7 +238,7 @@ to {
 			</div>
 			<br> <br> <br>
 			<div class="container" style="background-color: #f1f1f1">
-				<button type="button" class="cancelbtn">Cancel</button>
+				<a href="FarmerRegistration.jsp"><button type="button" class="re">Register for New Account</button></a>
 				<span class="psw">Forgot <a href="forgotpasswordgeneral.jsp">password?</a></span>
 			</div>
 		</form>
@@ -260,11 +261,12 @@ to {
 
 			<br> <br> <br>
 			<div class="container" style="background-color: #f1f1f1">
-				<button type="button" class="cancelbtn">Cancel</button>
+				<a href="FarmerRegistration.jsp"><button type="button" class="re" >Register for New Account</button></a>
 				<span class="psw">Forgot <a href="forgotpasswordgeneral.jsp">password?</a></span>
 			</div>
 		</form>
 	</div>
+
 <!-- ************************************************************************************************************ -->	
 <!-- ************************************************************************************************************ -->	
 <!-- ************************************************************************************************************ -->
@@ -307,6 +309,7 @@ to {
 var modal1 = document.getElementById('id01');
 var modal2 = document.getElementById('id02');
 
+
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == modal1) {
@@ -335,6 +338,7 @@ document.getElementById("defaultOpen").click();
 </script>
 
 										<!-- End of Scripts -->
+</div>
 
 </body>
 </html>
