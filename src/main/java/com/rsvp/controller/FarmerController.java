@@ -42,7 +42,7 @@ public class FarmerController {
 			return "farmerdashbord.jsp";
 		} catch (kisaanException e) {
 			model.put("invalidcredentials", "failed to login");
-			return "typeofuser.jsp";
+			return "HomePage.jsp";
 		}
 		
 	}

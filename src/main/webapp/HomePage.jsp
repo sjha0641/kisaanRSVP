@@ -212,7 +212,7 @@ to {
 
 
 <button class="tablink" onclick="openFunction('HomePage', this, 'green')" >Home Page</button>
-<button class="tablink" onclick="openFunction('AboutUs', this, 'green')" id="defaultOpen" >AboutUs</button>
+<button class="tablink" onclick="openFunction('AboutUs', this, 'green')" >AboutUs</button>
 <button class="tablink" onclick="openFunction('Login', this, 'green')">Login</button>
 <button class="tablink" onclick="openFunction('ContactUs', this, 'green')" >Contact Us</button>
 
@@ -222,7 +222,6 @@ to {
 <!-- ************************************************************************************************************ -->	
 <!-- ************************************************************************************************************ -->		
 <div id="id01" class="modal">
-
 		<form class="modal-content animate" action="loginfarmers.rsvp"
 			method="post">
 			<br> <br> <br>
@@ -231,13 +230,11 @@ to {
 					placeholder="Enter Email" name="email" required> <label
 					for="password"><b>Password</b></label> <input type="password"
 					placeholder="Enter Password" name="password" required>
-
 				<button type="submit">Login</button>
 				<label> <input type="checkbox" checked="checked"
 					name="remember"> Remember me
 				</label>
 			</div>
-
 			<br> <br> <br>
 			<div class="container" style="background-color: #f1f1f1">
 				<button type="button" class="cancelbtn">Cancel</button>
@@ -246,7 +243,6 @@ to {
 		</form>
 	</div>
 <div id="id02" class="modal">
-
 		<form class="modal-content animate" action="loginfarmers.rsvp"
 			method="post">
 			<br> <br> <br>
@@ -280,6 +276,7 @@ to {
 <!-- ************************************************************************************************************ -->
 <div id="Login" class="tabcontent">
 <center>
+<h1>${ invalidcredentials }</h1>
 	<button class="login1button" onclick="document.getElementById('id01').style.display='block'"
 		style="width: auto;">Farmer Login</button>
 	<button class="login2button" onclick="document.getElementById('id02').style.display='block'"
