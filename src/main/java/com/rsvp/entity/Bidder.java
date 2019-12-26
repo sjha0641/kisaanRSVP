@@ -4,6 +4,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -21,6 +22,7 @@ public class Bidder {
 	private String bidderContact;
 	
 	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "userid")
 	private Login login;
 	
 	@OneToOne(mappedBy = "bidderDetails",cascade = CascadeType.ALL)

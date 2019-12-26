@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +16,19 @@ button {
 	cursor: pointer;
 	width: 100%;
 }
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
 body {
 background-color: #4CAF50;
 }
@@ -55,12 +69,41 @@ button:hover {
 <body>
 <a href="farmerdashbord.jsp"><button class="tablink">Home Page</button></a>
 <button class="tablink" onclick="openFunction('AboutUs', this, 'green')" >AboutUs</button>
-<a href="HomePage.jsp"><button class="tablink">Logout</button></a>
+<a href="HomePage.jsp"><button class="tablink">Logout${ Session.Abandon }</button></a>
 <button class="tablink" onclick="openFunction('ContactUs', this, 'green')" >Contact Us</button>
 
 
 <a> UserId:${ farmerInFo.farmerId }</a>&nbsp &nbsp &nbsp
 <a> Name:${ farmerInFo.farmerFullName }</a><br>
+<!-- ********************************************************************************** -->
+<!-- ********************************************************************************** -->
+							<!-- tables of view of crops here -->
+<h1> ${ errortab }</h1>						
+<table>
+<tr>
+      <th>Last Day for Bid</th>
+      <th>Crop Name</th>
+      <th>Quantity</th>
+      <th>MSP</th>
+      <th>Crop Id</th>
+      <th>View Market Place</th>
+    </tr>
+  <c:forEach items="${ listofcropsbyfarmerid }" var="crop">
+    <tr>
+    <td><c:out value="${crop.cropLastDateForBid}" /></td>
+      <td><c:out value="${crop.cropName}" /></td>
+      <td><c:out value="${crop.cropQuantity}" /></td>
+      <td><c:out value="${crop.cropBasicPrice}" /></td>
+      <td><c:out value="${crop.cropId}" /></td>
+      <td><form action="view.rsvp" method="post"><input type="hidden" name="cropId" value="${crop.cropId}"><button type="submit">View</button></form>
+    </tr>
+  </c:forEach>
+</table>
+
+<!-- ********************************************************************************** -->
+<!-- ********************************************************************************** -->	
+	
+
 
 
 <div id="AboutUs" class="tabcontent">

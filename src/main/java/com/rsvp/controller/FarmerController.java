@@ -2,8 +2,17 @@ package com.rsvp.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Stream;
 
+import javax.servlet.http.HttpSession;
+
+import org.eclipse.jdt.internal.compiler.codegen.StackMapFrameCodeStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.rsvp.entity.BidDetails;
 import com.rsvp.entity.Crop;
 import com.rsvp.entity.DetailsFarmer;
 import com.rsvp.entity.Farmer;
@@ -20,6 +30,7 @@ import com.rsvp.entity.Login;
 import com.rsvp.exception.kisaanException;
 import com.rsvp.services.FarmerServices;
 import com.rsvp.services.SendMailService;
+import com.sun.mail.iap.Response;
 
 @Controller
 @SessionAttributes({"farmerInFo","logincredentials"})
@@ -111,6 +122,52 @@ public class FarmerController {
 		List<Crop> list=farmerServices.viewSoldCropHistory(farmer.getFarmerId());
 		model.put("ListOfCrops",list);
 		return "viewsoldcrophistory.jsp";
+	}
+	
+	@RequestMapping(path = "/viewmarketplace.rsvp")
+	public String viewMarketPlaceByFarmerId(ModelMap model){
+		Farmer farmer=(Farmer) model.get("farmerInFo");
+		List<Crop> cropsByFarmerId;
+		try {
+			cropsByFarmerId = farmerServices.viewMarketPlaceByFarmerId(farmer.getFarmerId());
+			model.put("listofcropsbyfarmerid", cropsByFarmerId);
+			return "viewmarketplace.jsp";
+		} catch (kisaanException e) {
+			model.put("errortab","nothing found for this farmer");
+			return "viewmarketplace.jsp";
+		}
+	}
+	
+	@RequestMapping(path = "/view.rsvp")
+	public String viewMarketPlaceForCropId(@RequestParam("cropId")int cropid,ModelMap model) {
+		Crop cropbyCropId;
+		int maxBid;
+		try {
+			cropbyCropId = farmerServices.viewMarketPlaceByCropId(cropid);
+			List<BidDetails> bidDetailsForCropId=farmerServices.viewMarketPlaceby(cropid);
+			List<Integer> amount=new ArrayList<Integer>();
+			for(BidDetails bid:bidDetailsForCropId) {
+				amount.add(bid.getBidAmount());
+			}
+			try {
+			maxBid=Collections.max(amount);
+			model.put("cropbycropid", cropbyCropId);
+			model.put("bidDetailsbycropid", bidDetailsForCropId);
+			model.put("currentbidamount",maxBid);
+			return "viewcropmarketplace.jsp";
+			}catch (Exception e) {
+				maxBid=0;
+				model.put("cropbycropid", cropbyCropId);
+				model.put("bidDetailsbycropid", bidDetailsForCropId);
+				model.put("currentbidamount",maxBid);
+				return "viewcropmarketplace.jsp";
+			}
+			
+		} catch (kisaanException e) {
+			model.put("errort","nothing found for this crop");
+			return "viewcropmarketplace.jsp";
+		}
+		
 	}
 
 }

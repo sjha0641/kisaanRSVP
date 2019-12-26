@@ -296,7 +296,7 @@ background-color: #4CAF50;
 <div id="ContactUs" class="tabcontent">
   <h1>ContactUs</h1>
   <p>PRIYANKYA ROY</p> 
-  <p>VISHAL and SATHYA</p>
+  <p>VISHAL and SATYA</p>
   <p>RaviThejaReddy</p>
 </div>
 <!-- ************************************************************************************************************ -->	

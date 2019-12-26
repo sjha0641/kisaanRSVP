@@ -84,14 +84,14 @@ input {
 <body>
 <a href="farmerdashbord.jsp"><button class="tablink">Home Page</button></a>
 <button class="tablink" onclick="openFunction('AboutUs', this, 'green')" >AboutUs</button>
-<a href="HomePage.jsp"><button class="tablink">Logout</button></a>
+<a href="HomePage.jsp"><button class="tablink">Logout${ Session.Abandon }</button></a>
 <button class="tablink" onclick="openFunction('ContactUs', this, 'green')" >Contact Us</button>
 
 
 <!-- **************************************************************************************** -->
 
 
-<form class="modal-content modal" action="sellyourcrop.rsvp" method="post" enctype="multipart/form-data">
+<form action="sellyourcrop.rsvp" method="post" enctype="multipart/form-data">
 Crop Type<input type="text" name="cropType"><br>
 Crop Name<input type="text" name="cropName"><br>
 Fertilizer Type<input type="text" name="cropFertilizerType"><br>

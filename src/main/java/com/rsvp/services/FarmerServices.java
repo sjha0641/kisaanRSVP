@@ -96,9 +96,9 @@ public class FarmerServices {
 		}
 	}
 	
-	public List<Crop> viewMarketPlaceByFrmerId(int farmerId) throws kisaanException {
+	public List<Crop> viewMarketPlaceByFarmerId(int farmerId) throws kisaanException {
 		try {
-		return farmerRepository.viewMarketPlaceByFrmerId(farmerId);
+		return farmerRepository.viewMarketPlaceByFarmerId(farmerId);
 		} catch (Exception e) {
 			throw new kisaanException("couldnt view market history for you ");
 		}
@@ -112,10 +112,9 @@ public class FarmerServices {
 		}
 }
 	
-	
-	public List<BidDetails> viewMarketPlaceby(Crop crop) throws kisaanException {
+	public List<BidDetails> viewMarketPlaceby(int cropid) throws kisaanException {
 		try{
-			return farmerRepository.viewMarketPlaceby(crop);
+			return farmerRepository.viewMarketPlaceby(cropid);
 		}catch (Exception e) {
 			throw new kisaanException("couldnt find bid details for this paticular crop");
 		}

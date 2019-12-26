@@ -66,7 +66,7 @@ tr:nth-child(even){background-color: #f2f2f2}
 <body>
 <a href="farmerdashbord.jsp"><button class="tablink">Home Page</button></a>
 <button class="tablink" onclick="openFunction('AboutUs', this, 'green')" >AboutUs</button>
-<a href="HomePage.jsp"><button class="tablink">Logout</button></a>
+<a href="HomePage.jsp"><button class="tablink">Logout ${ Session.invalidate() }</button></a>
 <button class="tablink" onclick="openFunction('ContactUs', this, 'green')" >Contact Us</button>
 
 
@@ -96,7 +96,7 @@ tr:nth-child(even){background-color: #f2f2f2}
   </c:forEach>
 </table>
 														
-<div id="AboutUs" class="tabcontent">
+<div id="AboutUs" class="tabcontent" style="center-bottom">
   <h1>AboutUs</h1>
   <p>We will change the feature with the help of <strong>Farmers</strong>.</p> 
 </div>

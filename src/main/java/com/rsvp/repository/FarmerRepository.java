@@ -93,20 +93,21 @@ public class FarmerRepository {
 		return list;
 	}
 
-	public List<Crop> viewMarketPlaceByFrmerId(int farmerId){
-		Query q=entityManager.createQuery("select c from Crop c where c.Farmer.farmerID=:fid");
-		q.setParameter("cid", farmerId);	
+	public List<Crop> viewMarketPlaceByFarmerId(int farmerid){
+		Query q=entityManager.createQuery("select c from Crop c where c.farmerCrop.farmerId=:fid");
+		q.setParameter("fid", farmerid);	
 		List<Crop> list=q.getResultList();
 		return	list;		
 	}
+	
 	public Crop viewMarketPlaceByCropId(int cropId) {
 		Query q=entityManager.createQuery("select c from Crop c where c.cropId=:cid");
 		q.setParameter("cid", cropId);
 		return (Crop) q.getSingleResult();
 	}
-	public List<BidDetails> viewMarketPlaceby(Crop crop) {
-		Query q= entityManager.createQuery("select b from BidDetails b where b.Crop.cropId=:cid");
-		q.setParameter("cid", crop.getCropId());
+	public List<BidDetails> viewMarketPlaceby(int cropid) {
+		Query q= entityManager.createQuery("select b from BidDetails b where b.cropBid.cropId=:cid");
+		q.setParameter("cid", cropid);
 		List<BidDetails> bidDetails=q.getResultList();
 		return bidDetails;
 	}
