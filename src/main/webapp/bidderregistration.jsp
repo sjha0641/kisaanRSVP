@@ -72,7 +72,7 @@ input[type=submit]:hover {
 </head>
 <body>
 <div class="container">
-  <form action="addbidder.rsvp" method="post" enctype="multipart/form-data">
+  <form action="registerbidder.rsvp" method="post" enctype="multipart/form-data">
   <label>Personal Details</label>
     <div class="row">
       <div class="col-25">

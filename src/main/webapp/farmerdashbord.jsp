@@ -105,6 +105,14 @@ button:hover {
   padding: 50px;
   text-align: center;
 }
+
+.tabcontent1 {
+  color: white;
+  display: none;
+  align-content: right;
+  float: right;
+}
+
 </style>
 </head>
 <body>
@@ -113,25 +121,22 @@ button:hover {
 <a href="HomePage.jsp"><button class="tablink">Logout ${ Session.Abandon }</button></a>
 <button class="tablink" onclick="openFunction('ContactUs', this, 'green')" >Contact Us</button>
 <button class="tablink" onclick="openFunction('Insurance', this, 'green')" >Insurance</button>
+<div id="Insurance" class="tabcontent1">
+<a> ${ ins }</a>
+	<button class="login1button" onclick="window.location.href = 'applyforinsurance.jsp';"
+		style="width: auto;">Apply for Insueance</button>
+	<button class="login2button" onclick="window.location.href = 'claimInsurance.jsp';"
+		style="width: auto;">Claim Insurance</button>
+</div>	
 <a> UserId:${ farmerInFo.farmerId }</a>&nbsp &nbsp &nbsp
 <a> Name:${ farmerInFo.farmerFullName }</a><br>
 
-
-<br><br><br>
 <div class="btn-group">
 <button onclick="window.location.href = 'sellyourcropfarmer.jsp';">Sell Your Crop</button>
 <button onclick="window.location.href = 'viewmarketplace.rsvp';">View Market Place</button>
 <button onclick="window.location.href = 'viewsoldcrophistory.rsvp';">View Sold Crop History</button>
 </div>
-<div id="Insurance" class="tabcontent">
-<a> ${ ins }</a>
-<center>
-	<button class="login1button" onclick="window.location.href = 'applyforinsurance.jsp';"
-		style="width: auto;">Apply for Insueance</button>
-	<button class="login2button" onclick="window.location.href = 'claimInsurance.jsp';"
-		style="width: auto;">Claim Insurance</button>
-</center>
-</div>																
+															
 <div id="HomePage" class="tabcontent">
   <h1>HomePage</h1>
   <p>hi wellcome to our page</p> 
@@ -161,11 +166,15 @@ window.onclick = function(event) {
     }
 }
 function openFunction(functionName,elmnt,color) {
-	  var i, tabcontent, tablinks;
+	  var i, tabcontent,tabcontent1, tablinks;
 	  tabcontent = document.getElementsByClassName("tabcontent");
+	  tabcontent1 = document.getElementsByClassName("tabcontent1");
 	  for (i = 0; i < tabcontent.length; i++) {
 	    tabcontent[i].style.display = "none";
 	  }
+	  for (i = 0; i < tabcontent1.length; i++) {
+		    tabcontent1[i].style.display = "none";
+		  }
 	  tablinks = document.getElementsByClassName("tablink");
 	  for (i = 0; i < tablinks.length; i++) {
 	    tablinks[i].style.backgroundColor = "";

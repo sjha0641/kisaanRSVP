@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,22 +16,7 @@ button {
 	cursor: pointer;
 	width: 100%;
 }
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  width: 100%;
-  border: 1px solid #ddd;
-}
 
-th, td {
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even){background-color: #f2f2f2}
-body {
-background-color: #4CAF50;
-}
 button:hover {
 	opacity: 0.8;
 }
@@ -55,29 +40,37 @@ button:hover {
 
 /* Style the tab content */
 .tabcontent {
-  color: white;
   display: none;
   padding: 50px;
   text-align: center;
 }
-#AboutUs {background-color:#4CAF50;}
-#ContactUs {background-color:#4CAF50;}
-#HomePage {background-color:#4CAF50;}
-#Login {background-color:#4CAF50;}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+#HomePage {background-color:green;}
 </style>
 </head>
 <body>
 <a href="farmerdashbord.jsp"><button class="tablink">Home Page</button></a>
-<button class="tablink" onclick="openFunction('AboutUs', this, 'green')" >AboutUs</button>
-<a href="HomePage.jsp"><button class="tablink">Logout${ Session.Abandon }</button></a>
-<button class="tablink" onclick="openFunction('ContactUs', this, 'green')" >Contact Us</button>
+<button class="tablink" onclick="openFunction('AboutUs', this, '')" >AboutUs</button>
+<a href="HomePage.jsp"><button class="tablink">Logout ${ Session.invalidate() }</button></a>
+<button class="tablink" onclick="openFunction('ContactUs', this, '')" >Contact Us</button>
 
 
 <a> UserId:${ farmerInFo.farmerId }</a>&nbsp &nbsp &nbsp
 <a> Name:${ farmerInFo.farmerFullName }</a><br>
-<!-- ********************************************************************************** -->
-<!-- ********************************************************************************** -->
-							<!-- tables of view of crops here -->
+
 <h1> ${ errortab }</h1>						
 <table>
 <tr>
@@ -99,14 +92,8 @@ button:hover {
     </tr>
   </c:forEach>
 </table>
-
-<!-- ********************************************************************************** -->
-<!-- ********************************************************************************** -->	
-	
-
-
-
-<div id="AboutUs" class="tabcontent">
+														
+<div id="AboutUs" class="tabcontent" style="center-bottom">
   <h1>AboutUs</h1>
   <p>We will change the feature with the help of <strong>Farmers</strong>.</p> 
 </div>

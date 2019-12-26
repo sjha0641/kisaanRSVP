@@ -32,8 +32,8 @@ public class BidderController {
 	@Autowired
 	private SendMailService sendMailService;
 
-	@RequestMapping(path = "/addbidder.rsvp", method = RequestMethod.POST)
-	public String addbidder(Bidder bidder, DetailsBidder detailsbidder, Login login,
+	@RequestMapping(path = "/registerbidder.rsvp", method = RequestMethod.POST)
+	public String addbidder(Bidder bidder,Login login,DetailsBidder detailsbidder,
 			@RequestParam("bidderAadhaarfile") MultipartFile bidderAadhaarfile,
 			@RequestParam("bidderPanfile") MultipartFile bidderCertificatefile,
 			@RequestParam("bidderCertificatefile") MultipartFile bidderPanfile, ModelMap model)

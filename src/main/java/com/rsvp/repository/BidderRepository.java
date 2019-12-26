@@ -21,12 +21,14 @@ public class BidderRepository {
 	@PersistenceContext
 	EntityManager entityManager;
 	
+	@Transactional
 	public void addBidder(Bidder bidder,DetailsBidder detailsbidder,Login login) {
 		bidder.setLogin(login);
 		bidder.setDetailsBidder(detailsbidder);
 		entityManager.persist(bidder);
 	}
-public Login loginBidder(String email, String password) {
+
+	public Login loginBidder(String email, String password) {
 		
 		Query q = entityManager.createQuery("select l from Login l where l.email=:em and l.password=:pa");
 		q.setParameter("em", email);
