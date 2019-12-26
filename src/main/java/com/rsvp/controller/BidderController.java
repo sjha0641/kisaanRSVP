@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.rsvp.entity.Bidder;
+import com.rsvp.entity.DetailsBidder;
+import com.rsvp.entity.Login;
 import com.rsvp.exception.kisaanException;
 import com.rsvp.services.BidderServices;
+import com.rsvp.services.SendMailService;
 
 @Controller
 public class BidderController {
@@ -16,15 +19,18 @@ public class BidderController {
 	@Autowired
 	BidderServices bidderServices;
 	
-	@RequestMapping(path = "/addFarmer.rsvp", method = RequestMethod.POST)
-	public String	addFarmer(Bidder bidder,ModelMap model) {
+	@Autowired
+	private SendMailService sendMailService;
+	
+	@RequestMapping(path = "/addbidder.rsvp", method = RequestMethod.POST)
+	public String addFarmer(Bidder bidder,DetailsBidder detailsbidder,Login login,ModelMap model) {
 		
 		try {
-			Bidder bidder1 = bidderServices.addFarmer(bidder);
-			model.put("bidder1", bidder1);
-			return "successfulregistration.jsp";
+			 bidderServices.addBidder(bidder, detailsbidder, login);
+			 sendMailService.send(login.getEmail(), "Thanxs for Registring with us", "Welcome to your website and keep using it");
+			return "successfulRegistration.jsp";
 		} catch (kisaanException e) {
-			return "bidderregistration.jsp";
+			return "bidderRegistration.jsp";
 
 		}
 		

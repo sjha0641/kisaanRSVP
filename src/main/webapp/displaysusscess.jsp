@@ -69,7 +69,7 @@ button:hover {
 </div>																
 <div id="HomePage" class="tabcontent">
   <h1>HomePage</h1>
-  <p>hi wellcome to our page</p> 
+  <p>Hi Welcome to our page</p> 
 </div>
 <div id="AboutUs" class="tabcontent">
   <h1>AboutUs</h1>

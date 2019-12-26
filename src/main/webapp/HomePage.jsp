@@ -261,7 +261,7 @@ background-color: #4CAF50;
 
 			<br> <br> <br>
 			<div class="container" style="background-color: #f1f1f1">
-				<a href="FarmerRegistration.jsp"><button type="button" class="re" >Register for New Account</button></a>
+				<a href="bidderregistration.jsp"><button type="button" class="re" >Register for New Account</button></a>
 				<span class="psw">Forgot <a href="forgotpasswordgeneral.jsp">password?</a></span>
 			</div>
 		</form>
