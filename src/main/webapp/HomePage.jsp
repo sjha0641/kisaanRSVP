@@ -244,7 +244,7 @@ background-color: #4CAF50;
 		</form>
 	</div>
 <div id="id02" class="modal">
-		<form class="modal-content animate" action="loginfarmers.rsvp"
+		<form class="modal-content animate" action="loginbidder.rsvp"
 			method="post">
 			<br> <br> <br>
 			<div class="container">

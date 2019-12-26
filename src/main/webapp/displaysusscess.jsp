@@ -56,7 +56,7 @@ button:hover {
 <button class="tablink" onclick="openFunction('AboutUs', this, 'green')" >AboutUs</button>
 <button class="tablink" onclick="openFunction('Login', this, 'green')">Login</button>
 <button class="tablink" onclick="openFunction('ContactUs', this, 'green')" >Contact Us</button>
- <a>Horry</a>
+<h1> ${ mailthing1 }</h1>
 <h1> ${ mailthing }</h1>
 <div id="Login" class="tabcontent">
 <center>

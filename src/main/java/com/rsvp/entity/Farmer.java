@@ -17,6 +17,7 @@ public class Farmer {
 	@Id
 	@GeneratedValue
 	private int farmerId;
+	
 	private String farmerFullName;
 	private String farmerContact;
 	
