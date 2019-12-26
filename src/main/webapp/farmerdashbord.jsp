@@ -39,7 +39,40 @@ button:hover {
 .btn-group button:not(:last-child) {
   border-bottom: none; /* Prevent double borders */
 }
+.login1button {
+	background-color: #4CAF50;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+	border: 4px double rgba(28,110,164,0.52);
+	border-radius: 0px 30px 0px 30px;
+}
 
+.login1button:hover {
+	border: 4px double rgba(28,110,164,0.52);
+	border-radius: 0px 30px 0px 30px;
+	opacity: 0.8;
+}
+.login2button {
+	background-color: #4CAF50;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+	border: 4px double rgba(28,110,164,0.52);
+	border-radius: 30px 0px 30px 0px;
+}
+
+.login2button:hover {
+	border: 4px double rgba(28,110,164,0.52);
+	border-radius: 30px 0px 30px 0px;
+	opacity: 0.8;
+}
 /* Add a background color on hover */
 .btn-group button:hover {
   background-color: #4CAF50;
@@ -54,7 +87,7 @@ button:hover {
   cursor: pointer;
   padding: 14px 16px;
   font-size: 17px;
-  width: 25%;
+  width: 20%;
 }
 
 .tablink:hover {
@@ -63,6 +96,7 @@ button:hover {
 #AboutUs {background-color:#4CAF50;}
 #ContactUs {background-color:#4CAF50;}
 #HomePage {background-color:#4CAF50;}
+#Insurance {background-color:#4CAF50;}
 #Login {background-color:#4CAF50;}
 /* Style the tab content */
 .tabcontent {
@@ -78,7 +112,7 @@ button:hover {
 <button class="tablink" onclick="openFunction('AboutUs', this, 'green')" >AboutUs</button>
 <a href="HomePage.jsp"><button class="tablink">Logout ${ Session.Abandon }</button></a>
 <button class="tablink" onclick="openFunction('ContactUs', this, 'green')" >Contact Us</button>
-
+<button class="tablink" onclick="openFunction('Insurance', this, 'green')" >Insurance</button>
 
 <a> UserId:${ farmerInFo.farmerId }</a>&nbsp &nbsp &nbsp
 <a> Name:${ farmerInFo.farmerFullName }</a><br>
@@ -90,7 +124,14 @@ button:hover {
 <button onclick="window.location.href = 'viewmarketplace.rsvp';">View Market Place</button>
 <button onclick="window.location.href = 'viewsoldcrophistory.rsvp';">View Sold Crop History</button>
 </div>
-																
+<div id="Insurance" class="tabcontent">
+<center>
+	<button class="login1button" onclick="window.location.href = 'applyforinsurance.jsp';"
+		style="width: auto;">Apply for Insueance</button>
+	<button class="login2button" onclick="window.location.href = 'claimInsurance.jsp';"
+		style="width: auto;">Claim Insurance</button>
+</center>
+</div>																
 <div id="HomePage" class="tabcontent">
   <h1>HomePage</h1>
   <p>hi wellcome to our page</p> 
@@ -106,6 +147,19 @@ button:hover {
   <p>RaviThejaReddy</p>
 </div>
 <script>
+var modal1 = document.getElementById('idi1');
+var modal2 = document.getElementById('idi2');
+
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal1) {
+        modal1.style.display = "none";
+    }
+    if (event.target == modal2) {
+        modal2.style.display = "none";
+    }
+}
 function openFunction(functionName,elmnt,color) {
 	  var i, tabcontent, tablinks;
 	  tabcontent = document.getElementsByClassName("tabcontent");

@@ -55,11 +55,6 @@ public class FarmerServices {
 			}catch (Exception e) {
 				throw new kisaanException("couldn't save a farmer");
 			}
-			try {
-			sendMailService.send(farmer.getLogin().getEmail(), "wellcome to kisaan humari jaan", "Thanxs for registering with kisaanRSVP");
-			}catch (Exception e) {
-				throw new kisaanException("couldn't send an conformation email");
-			}
 	}
 	
 	public void placeSellRequest(Crop crop,int farmerId) throws kisaanException {

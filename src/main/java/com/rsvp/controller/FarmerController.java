@@ -98,7 +98,13 @@ public class FarmerController {
 		detailsFarmer.setFarmerAadhaar(farmer.getFarmerFullName()+ farmerCertificatefile.getOriginalFilename());
 		detailsFarmer.setFarmerCertificate(farmer.getFarmerFullName()+ farmerPanfile.getOriginalFilename());
 		farmerServices.saveFarmer(farmer, login, detailsFarmer);
+		try {
+		sendMailService.send(farmer.getLogin().getEmail(), "wellcome to kisaan humari jaan", "Thanxs for registering with kisaanRSVP");
 		return "displaysusscess.jsp";
+		}catch (Exception e) {
+			model.put("mailthing", "couldnt send mail");
+			return "displaysusscess.jsp";
+		}
 	}
 	
 	@RequestMapping(path = "/sellyourcrop.rsvp", method = RequestMethod.POST)
@@ -169,5 +175,6 @@ public class FarmerController {
 		}
 		
 	}
+	
 
 }
