@@ -113,7 +113,6 @@ button:hover {
 <a href="HomePage.jsp"><button class="tablink">Logout ${ Session.Abandon }</button></a>
 <button class="tablink" onclick="openFunction('ContactUs', this, 'green')" >Contact Us</button>
 <button class="tablink" onclick="openFunction('Insurance', this, 'green')" >Insurance</button>
-
 <a> UserId:${ farmerInFo.farmerId }</a>&nbsp &nbsp &nbsp
 <a> Name:${ farmerInFo.farmerFullName }</a><br>
 
@@ -125,6 +124,7 @@ button:hover {
 <button onclick="window.location.href = 'viewsoldcrophistory.rsvp';">View Sold Crop History</button>
 </div>
 <div id="Insurance" class="tabcontent">
+<a> ${ ins }</a>
 <center>
 	<button class="login1button" onclick="window.location.href = 'applyforinsurance.jsp';"
 		style="width: auto;">Apply for Insueance</button>

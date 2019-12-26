@@ -72,7 +72,7 @@ input[type=submit]:hover {
 </head>
 <body>
 <div class="container">
-  <form action="#.rsvp" method="post">
+  <form action="applyforinsurance.rsvp" method="post">
     <div class="row">
       <div class="col-25">
         <label for="season">Season</label>

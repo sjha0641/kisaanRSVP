@@ -65,7 +65,7 @@ th, td {
 		<li><a class="active" href="#home">Home</a></li>
 		<li><a href="#news">Bid Crops</a></li>
 		<li><a href="viewyourbids.jsp">View Your Biddings</a></li>
-		<li><a href="#about">Logout</a></li>
+		<li><a href="HomePage.jsp">Logout</a></li>
 	</ul>
 
 

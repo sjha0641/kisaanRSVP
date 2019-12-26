@@ -26,6 +26,7 @@ import com.rsvp.entity.BidDetails;
 import com.rsvp.entity.Crop;
 import com.rsvp.entity.DetailsFarmer;
 import com.rsvp.entity.Farmer;
+import com.rsvp.entity.Insurance;
 import com.rsvp.entity.Login;
 import com.rsvp.exception.kisaanException;
 import com.rsvp.services.FarmerServices;
@@ -175,6 +176,22 @@ public class FarmerController {
 		}
 		
 	}
+
+	@RequestMapping(path = "/applyforinsurance.rsvp")
+	public String applyinsurance(Insurance insurance,ModelMap model){
+		try {
+			farmerServices.applyInsurance(insurance);
+			model.put("ins", "you have applied it");
+			return "farmerdashbord.jsp";
+		} catch (kisaanException e) {
+			model.put("ins", "failed to apply");
+			return "farmerdashbord.jsp";
+		}
+	}
 	
+	@RequestMapping(path = "/claiminsurance.rsvp")
+	public String claiminsurance(Insurance insurance,ModelMap model) {
+		return "";
+	}
 
 }
