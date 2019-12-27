@@ -64,7 +64,12 @@ public class FarmerRepository {
 		crop.setCropCurrentBid(0);
 		crop.setCropSoldPrice(0);
 		crop.setCropSoldStatus("no");	
-		entityManager.persist(crop);
+		entityManager.merge(crop);
+	}
+	@Transactional
+	public void updateCurrentbidRequest(Crop crop,int farmerId) {
+		Farmer farmer=entityManager.find(Farmer.class, farmerId);	
+		entityManager.merge(crop);
 	}
 
 	@Transactional
@@ -92,10 +97,28 @@ public class FarmerRepository {
 		List<Crop> list=q.getResultList();
 		return list;
 	}
+	
+	public List<Crop> nonactivecrops(int farmerId) {
+		Query q=entityManager.createQuery("select c from Crop c where c.farmerCrop.farmerId=:fid and c.cropActiveStatus=:css");
+		q.setParameter("fid", farmerId);
+		q.setParameter("css", "no");
+		List<Crop> list=q.getResultList();
+		return list;
+	}
+	
+	public List<Crop> UnSoldcrops(int farmerId) {
+		Query q=entityManager.createQuery("select c from Crop c where c.farmerCrop.farmerId=:fid and c.cropActiveStatus=:cas and c.cropSoldStatus=:css");
+		q.setParameter("fid", farmerId);
+		q.setParameter("cas", "yes");
+		q.setParameter("css", "no");
+		List<Crop> list=q.getResultList();
+		return list;
+	}
 
 	public List<Crop> viewMarketPlaceByFarmerId(int farmerid){
-		Query q=entityManager.createQuery("select c from Crop c where c.farmerCrop.farmerId=:fid");
-		q.setParameter("fid", farmerid);	
+		Query q=entityManager.createQuery("select c from Crop c where c.farmerCrop.farmerId=:fid and c.cropActiveStatus=:cas");
+		q.setParameter("fid", farmerid);
+		q.setParameter("cas", "yes");
 		List<Crop> list=q.getResultList();
 		return	list;		
 	}

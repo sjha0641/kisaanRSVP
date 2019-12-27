@@ -79,7 +79,7 @@ input[type=submit]:hover {
         <label for="name">Name</label>
       </div>
       <div class="col-75">
-        <input type="text" id="name" name="farmerFullName" placeholder="Your name..">
+        <input type="text" id="name" name="farmerFullName" required placeholder="Your name..">
       </div>
     </div>
     <div class="row">
@@ -87,7 +87,7 @@ input[type=submit]:hover {
         <label for="contact">Contact No</label>
       </div>
       <div class="col-75">
-        <input type="number" id="contact" name="farmerContact" placeholder="Your contact no..">
+        <input type="tel" id="contact" pattern="[6-9]{1}[0-9]{9}" name="farmerContact" required placeholder="eg.starts with[6,7,8,9]xxxxxxxxx">
       </div>
     </div>
     <div class="row">
@@ -95,7 +95,7 @@ input[type=submit]:hover {
         <label for="email">email</label>
       </div>
       <div class="col-75">
-        <input type="email" id="email" name="email" placeholder="Your email..">
+        <input type="email" id="email" name="email" required placeholder="eg. abc@xyz.com">
       </div>
     </div>
     <label>Address Line</label>
@@ -136,7 +136,7 @@ input[type=submit]:hover {
         <label for="pincode">Pin Code</label>
       </div>
       <div class="col-75">
-       <input type="number" id="pincode" name="farmerPinCode" placeholder="Your pin code.."> 
+       <input type="number" id="pincode" pattern="[1-9]{6}" name="farmerPinCode" placeholder="Your pin code.."> 
       </div>
     </div>
     <label>Land Details</label>
@@ -161,7 +161,7 @@ input[type=submit]:hover {
         <label for="pincodel">Land pin code</label>
       </div>
       <div class="col-75">
-       <input type="number" id="pincodel" name="farmerLandPinCode" placeholder="Your land pin code.."> 
+       <input type="number" id="pincodel" required pattern="[1-9]{6}" name="farmerLandPinCode" placeholder="Your land pin code.."> 
       </div>
     </div>
     <label>Bank Details</label>
@@ -170,7 +170,7 @@ input[type=submit]:hover {
         <label for="accountno">Account No</label>
       </div>
       <div class="col-75">
-       <input type="number" id="accountno" name="farmerAccountNo" placeholder="Your Bank Account No.."> 
+       <input type="number" id="accountno" name="farmerAccountNo" required placeholder="Your Bank Account No.."> 
       </div>
     </div>
     <div class="row">
@@ -178,7 +178,7 @@ input[type=submit]:hover {
         <label for="ifsccode">IFSC Code</label>
       </div>
       <div class="col-75">
-       <input type="text" id="ifsccode" name="farmerIFSCCode" placeholder="Your IFSC code.."> 
+       <input type="text" id="ifsccode"  required name="farmerIFSCCode" placeholder="Your IFSC code.."> 
       </div>
     </div>
     <label>Documents Upload</label>
@@ -187,7 +187,7 @@ input[type=submit]:hover {
         <label for="aadharfile">Aadhaar</label>
       </div>
       <div class="col-75">
-       <input type="file" id="aadharfile" name="farmerAadhaarfile"> 
+       <input type="file" required id="aadharfile" name="farmerAadhaarfile"> 
       </div>
     </div>
     <div class="row">
@@ -195,7 +195,7 @@ input[type=submit]:hover {
         <label for="pan">PAN</label>
       </div>
       <div class="col-75">
-       <input type="file" id="pan" name="farmerPanfile" > 
+       <input type="file" id="pan" required name="farmerPanfile" > 
       </div>
     </div>
     <div class="row">
@@ -203,7 +203,7 @@ input[type=submit]:hover {
         <label for="certificate">Certificate</label>
       </div>
       <div class="col-75">
-       <input type="file" id="certificate" name="farmerCertificatefile"> 
+       <input type="file" id="certificate" required name="farmerCertificatefile"> 
       </div>
     </div>
     <div class="row">
@@ -211,7 +211,7 @@ input[type=submit]:hover {
         <label for="pass">password</label>
       </div>
       <div class="col-75">
-       <input type="password" id="pass" name="password"> 
+       <input type="password" required id="pass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" name="password"> 
       </div>
     </div>
     <div class="row">
@@ -219,7 +219,7 @@ input[type=submit]:hover {
         <label for="passw">confirm password</label>
       </div>
       <div class="col-75">
-       <input type="password" id="passw" name="confirmpassword"> 
+       <input type="password" required id="passw" name="confirmpassword"> 
       </div>
     </div>
     <div class="row">

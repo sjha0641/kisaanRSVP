@@ -28,6 +28,7 @@ public class BidderServices {
 		throw new kisaanException("Unable to Register.Please enter corrct details");
 	}
 	}
+	
 	public Login loginBidder(String email, String password) throws kisaanException {
 
 		try {
@@ -41,7 +42,6 @@ public class BidderServices {
 	}
 
 	public List<Crop> fetchAllCropsForSale() {
-
 		List<Crop> crops = bidderRepository.fetchAllCropsForSale();
 		return crops;
 	}

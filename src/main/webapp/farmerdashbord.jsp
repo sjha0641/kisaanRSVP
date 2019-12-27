@@ -1,14 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+        <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-/* Set a style for all buttons */
-body {
-background-color: #4CAF50;
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
 }
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+/* Set a style for all buttons */
+
 button {
 	background-color: #4CAF50;
 	color: white;
@@ -18,9 +30,7 @@ button {
 	cursor: pointer;
 	width: 100%;
 }
-body {
-background-color: #4CAF50;
-}
+
 
 button:hover {
 	opacity: 0.8;
@@ -76,6 +86,7 @@ button:hover {
 /* Add a background color on hover */
 .btn-group button:hover {
   background-color: #4CAF50;
+  
 }
 /* for top tab*/
 .tablink {
@@ -102,8 +113,12 @@ button:hover {
 .tabcontent {
   color: white;
   display: none;
-  padding: 50px;
-  text-align: center;
+  padding: 20px 0px 20px 0px;
+  position: absolute;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   text-align: center;
 }
 
 .tabcontent1 {
@@ -111,12 +126,22 @@ button:hover {
   display: none;
   align-content: right;
   float: right;
+  margin-bottom: 0;
 }
-
+.table11{
+display: inline-table;
+}
+/*-----------------*/
+.outer {
+}
+.outer > * {
+  display:inline-block;
+  vertical-align:middle;
+}
 </style>
 </head>
 <body>
-<a href="farmerdashbord.jsp"><button class="tablink">Home Page</button></a>
+<a href="dashboard.rsvp"><button class="tablink">Home Page</button></a>
 <button class="tablink" onclick="openFunction('AboutUs', this, 'green')" >AboutUs</button>
 <a href="HomePage.jsp"><button class="tablink">Logout ${ Session.Abandon }</button></a>
 <button class="tablink" onclick="openFunction('ContactUs', this, 'green')" >Contact Us</button>
@@ -131,11 +156,84 @@ button:hover {
 <a> UserId:${ farmerInFo.farmerId }</a>&nbsp &nbsp &nbsp
 <a> Name:${ farmerInFo.farmerFullName }</a><br>
 
-<div class="btn-group">
+<%-- <div class="table11">
+<table>
+<tr>
+      <th>Last Day for Bid</th>
+      <th>Crop Name</th>
+      <th>Quantity</th>
+      <th>MSP</th>
+      <th>Crop Active Status</th>
+      <th>SoldStatus</th>
+    </tr>
+  <c:forEach items="${ listofnonactivecrop }" var="crop">
+    <tr>
+    <td><c:out value="${crop.cropLastDateForBid}" /></td>
+      <td><c:out value="${crop.cropName}" /></td>
+      <td><c:out value="${crop.cropQuantity}" /></td>
+      <td><c:out value="${crop.cropBasicPrice}" /></td>
+     <td><c:out value="${crop.cropActiveStatus}" /></td>
+      <td><c:out value="${crop.cropSoldStatus}" /></td>
+    </tr>
+  </c:forEach>
+</table>
+</div> --%>
+<div class="btn-group" style="float: left;">
 <button onclick="window.location.href = 'sellyourcropfarmer.jsp';">Sell Your Crop</button>
 <button onclick="window.location.href = 'viewmarketplace.rsvp';">View Market Place</button>
 <button onclick="window.location.href = 'viewsoldcrophistory.rsvp';">View Sold Crop History</button>
 </div>
+
+<div style="float: right;">
+<center><a>Un Sold Crop List</a></center>
+<table>
+<tr>
+      <th>Last Day for Bid</th>
+      <th>Crop Type</th>
+      <th>Crop Name</th>
+      <th>Quantity</th>
+      <th>MSP</th>
+      <th>Crop Sold Status</th>
+    </tr>
+  <c:forEach items="${ listofunsoldcrops }" var="crop">
+    <tr>
+      <td><c:out value="${crop.cropLastDateForBid}" /></td>
+      <td><c:out value="${crop.cropType}" /></td>
+      <td><c:out value="${crop.cropName}" /></td>
+      <td><c:out value="${crop.cropQuantity}" /></td>
+      <td><c:out value="${crop.cropBasicPrice}" /></td>
+     <td><center><c:out value="${crop.cropSoldStatus}" /></center></td>
+    </tr>
+  </c:forEach>
+</table>
+</div>
+
+<div style="float: right;">
+<center><a>Non Active Crop List</a></center>
+<table>
+<tr>
+      <th>Last Day for Bid</th>
+      <th>Crop Type</th>
+      <th>Crop Name</th>
+      <th>Quantity</th>
+      <th>MSP</th>
+      <th>Crop Active Status</th>
+    </tr>
+  <c:forEach items="${ listofnonactivecrop }" var="crop">
+    <tr>
+    <td><c:out value="${crop.cropLastDateForBid}" /></td>
+    <td><c:out value="${crop.cropType}" /></td>
+      <td><c:out value="${crop.cropName}" /></td>
+      <td><c:out value="${crop.cropQuantity}" /></td>
+      <td><c:out value="${crop.cropBasicPrice}" /></td>
+     <td><center><c:out value="${crop.cropActiveStatus}" /></center></td>
+    </tr>
+  </c:forEach>
+</table>
+</div>
+
+
+
 															
 <div id="HomePage" class="tabcontent">
   <h1>HomePage</h1>

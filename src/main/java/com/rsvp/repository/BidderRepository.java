@@ -40,15 +40,11 @@ public class BidderRepository {
 	
 
 	public List<Crop> fetchAllCropsForSale() {
-		
-		String SQL=" select c from Crop c where c.cropActiveStatus =:cas and c.cropSoldStatus =:css ";
-		Query q= entityManager.createQuery(SQL);
-		q.setParameter("cas", "yes");
-		q.setParameter("css", "no");
+		Query q= entityManager.createQuery("select c from Crop c where c.cropActiveStatus=:cas and c.cropSoldStatus=:css");
+		q.setParameter("cas","yes");
+		q.setParameter("css","no");
 		List<Crop> crops= q.getResultList();
-		System.out.println("repository "+crops.size());
 		return crops;
-		
 	}
 	
 	@Transactional

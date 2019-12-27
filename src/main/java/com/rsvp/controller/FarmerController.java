@@ -2,6 +2,7 @@ package com.rsvp.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -34,7 +35,7 @@ import com.rsvp.services.SendMailService;
 import com.sun.mail.iap.Response;
 
 @Controller
-@SessionAttributes({"farmerInFo","logincredentials"})
+@SessionAttributes({"farmerInFo","logincredentials","listofnonactivecrop","listofunsoldcrops"})
 public class FarmerController {
 
 	@Autowired
@@ -49,6 +50,10 @@ public class FarmerController {
 		try {
 			loginFarmer = farmerServices.login(login.getEmail(), login.getPassword());
 			Farmer farmer=farmerServices.fetchFarmerInfo(loginFarmer.getUserId());
+			List<Crop> listofnonactivecrops=farmerServices.nonactivecrops(farmer.getFarmerId());
+			List<Crop> listofunsoldCrops=farmerServices.UnSoldcrops(farmer.getFarmerId());
+			model.put("listofnonactivecrop", listofnonactivecrops);
+			model.put("listofunsoldcrops", listofunsoldCrops);
 			model.put("logincredentials", loginFarmer);
 			model.put("farmerInFo", farmer);
 			return "farmerdashbord.jsp";
@@ -57,6 +62,16 @@ public class FarmerController {
 			return "HomePage.jsp";
 		}
 		
+	}
+	
+	@RequestMapping(path = "/dashboard.rsvp")
+	public String dashboardthings(ModelMap model) {
+		Farmer farmer=(Farmer) model.get("farmerInFo");
+		List<Crop> listofnonactivecrops=farmerServices.nonactivecrops(farmer.getFarmerId());
+		List<Crop> listofunsoldCrops=farmerServices.UnSoldcrops(farmer.getFarmerId());
+		model.put("listofunsoldcrops", listofunsoldCrops);
+		model.put("listofnonactivecrop", listofnonactivecrops);
+		return"farmerdashbord.jsp";
 	}
 	
 	@RequestMapping(path = "/resetpasswordfarmer.rsvp", method = RequestMethod.POST)
@@ -120,7 +135,7 @@ public class FarmerController {
 		Farmer farmer=(Farmer) model.get("farmerInFo");
 		crop.setCropSoilPHCertificate(login.getEmail()+cropSoilPHCertificate.getOriginalFilename());
 		farmerServices.placeSellRequest(crop,farmer.getFarmerId());
-		return "farmerdashbord.jsp";
+		return "redirect:/dashboard.rsvp";
 	}
 	
 	@RequestMapping(path = "/viewsoldcrophistory.rsvp")
@@ -158,6 +173,15 @@ public class FarmerController {
 			}
 			try {
 			maxBid=Collections.max(amount);
+			cropbyCropId.setCropCurrentBid(maxBid);
+			cropbyCropId.setCropActiveStatus("yes");
+			Farmer farmer=(Farmer) model.get("farmerInFo");
+			LocalDate currentdate=LocalDate.now();
+			if(currentdate.compareTo(cropbyCropId.getCropLastDateForBid())>0) {
+				cropbyCropId.setCropSoldPrice(maxBid);
+				cropbyCropId.setCropSoldStatus("yes");
+			}
+			farmerServices.updateCurrentbidRequest(cropbyCropId, farmer.getFarmerId());
 			model.put("cropbycropid", cropbyCropId);
 			model.put("bidDetailsbycropid", bidDetailsForCropId);
 			model.put("currentbidamount",maxBid);

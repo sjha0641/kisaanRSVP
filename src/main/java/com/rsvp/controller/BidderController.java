@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.text.html.FormSubmitEvent.MethodType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.rsvp.entity.BidDetails;
@@ -24,6 +26,7 @@ import com.rsvp.services.BidderServices;
 import com.rsvp.services.SendMailService;
 
 @Controller
+@SessionAttributes({"listofcropss","bidinfo"})
 public class BidderController {
 
 	@Autowired
@@ -66,27 +69,25 @@ public class BidderController {
 		}
 	}
 
-	@RequestMapping("/loginbidder.rsvp")
+	@RequestMapping(path = "/loginbidder.rsvp")
 	public String loginBidder(Login login, ModelMap model, HttpServletRequest request) throws kisaanException {
 		Login loginBidder = bidderServices.loginBidder(login.getEmail(), login.getPassword());
 		Bidder bidder = bidderServices.fetchBidderInfo(loginBidder.getUserId());
-		System.out.println(bidder.getLogin().getEmail());
 		try {
-
+			model.put("bidinfo", bidder);
 			model.put("loggedBidder", bidder);
-
-			List<Crop> crops = bidderServices.fetchAllCropsForSale();
-			model.put("cropsList", crops);
-
 			return "bidderdashboard.jsp";
 		} catch (Exception e) {
-
-			// setHeaderToRefreshAfter5secondsand reason is invalid bidder credentials
-			e.printStackTrace();
-			return "BidderLogin.jsp";
+			return "HomePage.jsp";
 		}
 	}
 
+	@RequestMapping(path = "getcropsforsale.rsvp")
+	public String getcropforbids(ModelMap model) {
+		List<Crop> list=bidderServices.fetchAllCropsForSale();
+		model.put("listofcropss",list);
+		return "getcropsforsale.jsp";
+	}
 //	@RequestMapping(path = "/bidthecrop.rsvp",method = RequestMethod.POST)
 //	public void bidTheCrop(@RequestParam("bidthiscrop") int cropId,ModelMap model) {
 //		
@@ -94,15 +95,15 @@ public class BidderController {
 //		
 //	}
 
-	@RequestMapping(path = "/bidding.rsvp")
-	public String addCropBiddingDeatils(@RequestParam("bidthiscrop") int cropId, @RequestParam("bid") int bidAmount,
+	@RequestMapping(path = "/bidding.rsvp",method = RequestMethod.POST)
+	public String addCropBiddingDeatils(@RequestParam("bidderid") int bidderId,@RequestParam("bidthiscrop") int cropId, @RequestParam("bid") int bidAmount,
 			ModelMap model) throws kisaanException {
 
 		System.out.println(cropId + " " + bidAmount);
 		BidDetails detailsOfABid = new BidDetails();
 		detailsOfABid.setBidAmount(bidAmount);
 		detailsOfABid.setBidStatus("active");
-		Bidder bidder = (Bidder) model.get("loggedBidder");
+		Bidder bidder = (Bidder) model.get("bidinfo");
 		detailsOfABid.setBidderBid(bidder);
 
 		Crop crop = bidderServices.fetchCropById(cropId);

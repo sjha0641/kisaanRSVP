@@ -62,7 +62,7 @@ tr:nth-child(even){background-color: #f2f2f2}
 </style>
 </head>
 <body>
-<a href="farmerdashbord.jsp"><button class="tablink">Home Page</button></a>
+<a href="dashboard.rsvp"><button class="tablink">Home Page</button></a>
 <button class="tablink" onclick="openFunction('AboutUs', this, '')" >AboutUs</button>
 <a href="HomePage.jsp"><button class="tablink">Logout ${ Session.invalidate() }</button></a>
 <button class="tablink" onclick="openFunction('ContactUs', this, '')" >Contact Us</button>
