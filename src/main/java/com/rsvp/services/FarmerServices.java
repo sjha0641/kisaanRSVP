@@ -99,10 +99,15 @@ public class FarmerServices {
 		for(BidDetails bid:bidDetailsForCropId) {
 			amount.add(bid.getBidAmount());
 		}
+		try {
 		maxBid=Collections.max(amount);
+		}catch (Exception e) {
+			maxBid=0;
+		}
 		crop.setCropCurrentBid(maxBid);
 		crop.setCropActiveStatus("yes");
-		Farmer farmer=farmerRepository.fetchFarmerInfo(farmerId);
+		System.out.println("farmerid ==== " + farmerId);
+		Farmer farmer=farmerRepository.fetchFarmerInf(farmerId);
 		LocalDate currentdate=LocalDate.now();
 		if(currentdate.compareTo(crop.getCropLastDateForBid())>0) {
 			crop.setCropSoldPrice(maxBid);

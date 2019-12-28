@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -28,8 +28,8 @@ public class DetailsFarmer {
 	private String farmerPan;
 	private String farmerCertificate;
 	
-	@OneToOne
-	@JoinColumn(name = "farmerId")
+	@ManyToOne
+	@JoinColumn(name = "farmerId", unique = true)
 	Farmer farmerDetails;
 
 	public int getFarmerDetailsId() {

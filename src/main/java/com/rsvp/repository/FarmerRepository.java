@@ -35,6 +35,10 @@ public class FarmerRepository {
 		return (Farmer) q.getSingleResult();
 	}
 	
+	public Farmer fetchFarmerInf(int userId) {
+		return (Farmer) entityManager.find(Farmer.class, userId);
+	}
+	
 	@Transactional
 	public Login resetpassword(Login login) {
 		Login loginr=entityManager.find(Login.class,login.getUserId());
@@ -52,6 +56,7 @@ public class FarmerRepository {
 	@Transactional
 	public void saveFarmer(Farmer farmer,Login login,DetailsFarmer detailsFarmer) {
 		farmer.setDetailsFarmer(detailsFarmer);
+		detailsFarmer.setFarmerDetails(farmer);
 		farmer.setLogin(login);
 		entityManager.persist(farmer);
 	}
