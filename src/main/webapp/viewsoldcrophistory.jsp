@@ -45,19 +45,24 @@ button:hover {
   padding: 50px;
   text-align: center;
 }
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  width: 100%;
-  border: 1px solid #ddd;
+table { 
+  width: 100%; 
+  border-collapse: collapse; 
 }
-
-th, td {
-  text-align: left;
-  padding: 8px;
+/* Zebra striping */
+tr:nth-of-type(odd) { 
+  background: #eee; 
 }
-
-tr:nth-child(even){background-color: #f2f2f2}
+th { 
+  background: #333; 
+  color: white; 
+  font-weight: bold; 
+}
+td, th { 
+  padding: 6px; 
+  border: 1px solid #ccc; 
+  text-align: left; 
+}
 #AboutUs {background-color:green;}
 #ContactUs {background-color:green;}
 #HomePage {background-color:green;}

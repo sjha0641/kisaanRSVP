@@ -5,6 +5,8 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/util.css">
+<link rel="stylesheet" type="text/css" href="css/main.css">
 <style>
 table {
   border-collapse: collapse;
@@ -13,12 +15,16 @@ table {
   border: 1px solid #ddd;
 }
 
-th, td {
+th{
+background-color:#4CAF50;
+  text-align: left;
+  padding: 8px;
+}
+ td {
   text-align: left;
   padding: 8px;
 }
 
-tr:nth-child(even){background-color: #f2f2f2}
 /* Set a style for all buttons */
 
 button {
