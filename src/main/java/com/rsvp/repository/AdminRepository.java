@@ -92,9 +92,19 @@ public class AdminRepository {
 		BidDetails bid = entityManager.find(BidDetails.class, bidId);
 		crop.setCropSoldStatus("yes");
 		crop.setCropActiveStatus("no");
-		bid.setBidStatus("sold to you");
+		crop.setCropSoldPrice(bid.getBidAmount());
+		bid.setBidStatus("soldtoyou");
 		entityManager.merge(crop);
 		entityManager.merge(bid);
+
+		Query q= entityManager.createQuery("select b from BidDetails b where b.bidId !=:bs and b.cropBid.cropId=:cb");
+		q.setParameter("bs", bidId);
+		q.setParameter("cb", cropId);
+		List<BidDetails> bidList = q.getResultList();
+		for(BidDetails b: bidList) {
+		b.setBidStatus("sold");
+		entityManager.merge(b);
+		}
 	}
 	
 	@Transactional
