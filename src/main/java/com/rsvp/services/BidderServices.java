@@ -1,34 +1,41 @@
 package com.rsvp.services;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.rsvp.component.BidEndingTime;
 import com.rsvp.entity.BidDetails;
 import com.rsvp.entity.Bidder;
 import com.rsvp.entity.Crop;
-import com.rsvp.entity.DetailsBidder;
 import com.rsvp.entity.Login;
 import com.rsvp.exception.kisaanException;
 import com.rsvp.repository.BidderRepository;
 
-@Service
+@Service 
 public class BidderServices {
-	
+
 	@Autowired
 	BidderRepository bidderRepository;
 	
-	public void addBidder(Bidder bidder,DetailsBidder detailsbidder,Login login) throws kisaanException {
-			
-	try {
-		 bidderRepository.addBidder(bidder, detailsbidder, login);
+	@Autowired
+	BidEndingTime bidEndingTime;
+
+	public Bidder addFarmer(Bidder bidder) throws kisaanException {
+
+		try {
+			Bidder bidder1 = bidderRepository.addBidder(bidder);
+			return bidder1;
+		} catch (Exception e) {
+			throw new kisaanException("Unable to Register.Please try again with valid credentials.", e);
+		} 
 	}
-	catch (Exception e) {
-		throw new kisaanException("Unable to Register.Please enter corrct details");
-	}
-	}
-	
+
 	public Login loginBidder(String email, String password) throws kisaanException {
 
 		try {
@@ -42,7 +49,16 @@ public class BidderServices {
 	}
 
 	public List<Crop> fetchAllCropsForSale() {
-		List<Crop> crops = bidderRepository.fetchAllCropsForSale();
+		
+		List<Crop> finalcropslist = new ArrayList<Crop>();
+		LocalDate date = LocalDate.now(); 
+		List<Crop> crops = bidderRepository.fetchAllCropsForSale(date);
+		
+		LocalTime  time = LocalTime.now();
+		if(time.getHour()<bidEndingTime.getBidEndingTime().getHour()) {
+			List<Crop> crops2 = bidderRepository.fetchAllCropsForSale1(date);
+			crops.addAll(crops2);
+		}
 		return crops;
 	}
 
@@ -82,4 +98,5 @@ public class BidderServices {
 		return bidderRepository.viewAllUnsuccessfulBidsOfABidder(bidderId);
 
 	}
-} 
+
+}

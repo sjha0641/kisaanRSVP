@@ -71,7 +71,7 @@ td, th {
 <body>
 <a href="dashboard.rsvp"><button class="tablink">Home Page</button></a>
 <button class="tablink" onclick="openFunction('AboutUs', this, 'green')" >AboutUs</button>
-<a href="HomePage.jsp"><button class="tablink">Logout ${ Session.invalidate() }</button></a>
+<a href="logoutbidder.rsvp"><button class="tablink">Logout</button></a>
 <button class="tablink" onclick="openFunction('ContactUs', this, 'green')" >Contact Us</button>
 
 

@@ -1,33 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<style type="src/main/webapp/css/biddernavigation.css"> </style>
 <style>
 .maindiv {
 	display: block;
-	background-color: #ccffcc;
-	border: 2px solid black;
-}
-
-[class*="subdiv"] {
-	float: left;
-	padding: 10px;
-	width: 30%;
-	height: 50%;
+	margin-top:50px;
 }
 
 .subdiv1 {
+	float: left;
+	padding: 10px;
+	width: 30%;
 	background-color: #FFBD33;
 }
 
 .subdiv2 {
+	float: left;
+	padding: 10px;
+	width: 30%;
+	margin-left:38px;
 	background-color: #FF5733;
 }
 
 .subdiv3 {
+	margin-left:20px;
+	float: right;
+	padding: 10px;
+	width: 30%;
 	background-color: #DAF7A6;
 }
 
@@ -44,30 +49,34 @@ th, td {
 }
 .buttondiv{
 display:block;
-background-color:blue;
-border: 1px solid #ddd;
 }
 form{
-display:inline;
-margin:20px;
 float:left;
+
 }
 </style>
 </head>
 <body>
-
-	<h3>List Of All Bids By You</h3>
+	
+	<ul>
+		<li><a href="bidderdashboard.jsp">Home</a></li>
+		<li><a href="fetchallcrops.rsvp">Bid Crops</a></li>
+		<li><a href="viewyourbids.jsp">View Your Biddings</a></li>
+		<li><a href="logoutbidder.rsvp">Logout </a></li>
+	</ul>
+		
+	<h2 style="margin-left:45%">List Of All Bids By You</h2>
 
 		<div class="buttondiv">
 
-			<form action="activebids.rsvp">
-				<input type="submit" value="view  Your Active Bids">
+			<form style="margin-left:150px;" action="activebids.rsvp">
+				<input style="width:200px; border-radius:5px; background-color: #FFBD33;" type="submit" value="view  Your Active Bids">
 			</form>
-			<form action="successfulbids.rsvp">
-				<input type="submit" value="view  Your Successfull Bids">
+			<form style="margin-left:250px;" action="successfulbids.rsvp">
+				<input style="width:200px; border-radius:5px; background-color: #FF5733;" type="submit" value="view  Your Successfull Bids">
 			</form>
-			<form action="unsuccessfulbids.rsvp">
-				<input type="submit" value="view  Your Unsuccessfull Bids">
+			<form style="margin-left:250px;" action="unsuccessfulbids.rsvp">
+				<input style="width:200px; border-radius:5px; background-color: #DAF7A6;" type="submit" value="view  Your Unsuccessfull Bids">
 			</form>
 
 	</div>
@@ -77,15 +86,13 @@ float:left;
 				<tr>
 					<th>Crop Type</th>
 					<th>Crop Name</th>
-					<th>Current Bid Amount</th>
-					<th>Crop status</th>
+					<th>Bid Amount</th>
 				</tr>
 				<c:forEach items="${ activeBidDetails }" var="bd">
 					<tr>
-						<td>${ bd.cropType }</td>
-						<td>${ bd.cropName }</td>
-						<td>${ bd.cropCurrentBid }</td>
-						<td>${ bd.bidStatus }</td>
+						<td>${ bd.cropBid.cropType }</td>
+						<td>${ bd.cropBid.cropName }</td>
+						<td>${ bd.bidAmount }</td>
 					</tr>
 				</c:forEach>
 			</table>
@@ -96,36 +103,31 @@ float:left;
 				<tr>
 					<th>Crop Type</th>
 					<th>Crop Name</th>
-					<th>Current Bid Amount</th>
-					<th>Crop status</th>
+					<th>Bid Amount</th>
 				</tr>
 				<c:forEach items="${ successfulBidDetails }" var="bd">
 					<tr>
-						<td>${ bd.cropType }</td>
-						<td>${ bd.cropName }</td>
-						<td>${ bd.cropCurrentBid }</td>
-						<td>${ bd.bidStatus }</td>
+						<td>${ bd.cropBid.cropType }</td>
+						<td>${ bd.cropBid.cropName }</td>
+						<td>${ bd.bidAmount }</td>
 					</tr>
 				</c:forEach>
 			</table>
 
 		</div>
-		unsuccessfulBidDetails
 		<div class="subdiv3">
 
 			<table>
 				<tr>
 					<th>Crop Type</th>
 					<th>Crop Name</th>
-					<th>Current Bid Amount</th>
-					<th>Crop status</th>
+					<th>Bid Amount</th>
 				</tr>
 				<c:forEach items="${ unsuccessfulBidDetails }" var="bd">
 					<tr>
-						<td>${ bd.cropType }</td>
-						<td>${ bd.cropName }</td>
-						<td>${ bd.cropCurrentBid }</td>
-						<td>${ bd.bidStatus }</td>
+						<td>${ bd.cropBid.cropType }</td>
+						<td>${ bd.cropBid.cropName }</td>
+						<td>${ bd.bidAmount }</td>
 					</tr>
 				</c:forEach>
 			</table>

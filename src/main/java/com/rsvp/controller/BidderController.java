@@ -1,12 +1,11 @@
 package com.rsvp.controller;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.text.html.FormSubmitEvent.MethodType;
+import javax.servlet.http.HttpSession;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,134 +13,122 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.rsvp.entity.BidDetails;
 import com.rsvp.entity.Bidder;
 import com.rsvp.entity.Crop;
-import com.rsvp.entity.DetailsBidder;
 import com.rsvp.entity.Login;
 import com.rsvp.exception.kisaanException;
 import com.rsvp.services.BidderServices;
-import com.rsvp.services.SendMailService;
 
 @Controller
-@SessionAttributes({"listofcropss","bidinfo"})
+@SessionAttributes("loggedBidder")
 public class BidderController {
 
 	@Autowired
 	BidderServices bidderServices;
 
-	@Autowired
-	private SendMailService sendMailService;
+	@RequestMapping(path = "/addFarmer.rsvp", method = RequestMethod.POST)
+	public String addFarmer(Bidder bidder, ModelMap model) {
 
-	@RequestMapping(path = "/registerbidder.rsvp", method = RequestMethod.POST)
-	public String addbidder(Bidder bidder,Login login,DetailsBidder detailsbidder,
-			@RequestParam("bidderAadhaarfile") MultipartFile bidderAadhaarfile,
-			@RequestParam("bidderPanfile") MultipartFile bidderCertificatefile,
-			@RequestParam("bidderCertificatefile") MultipartFile bidderPanfile, ModelMap model)
-			throws kisaanException, Exception {
+		try {
+			Bidder bidder1 = bidderServices.addFarmer(bidder);
+			model.put("bidder1", bidder1);
+			return "successfulregistration.jsp";
+		} catch (kisaanException e) {
+			return "bidderregistration.jsp";
 
-		String pathAadhar = "d:/uploads/aadhar/";
-		String pathCertificate = "d:/uploads/cartificate/";
-		String pathPan = "d:/uploads/pan/";
-		String Aadhar = pathAadhar + bidder.getBidderFullName() + bidderAadhaarfile.getOriginalFilename();
-		String Certificate = pathCertificate + bidder.getBidderFullName() + bidderCertificatefile.getOriginalFilename();
-		String Pan = pathPan + bidder.getBidderFullName() + bidderPanfile.getOriginalFilename();
-		try {
-			bidderAadhaarfile.transferTo(new File(Aadhar));
-			bidderCertificatefile.transferTo(new File(Certificate));
-			bidderPanfile.transferTo(new File(Pan));
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
-		detailsbidder.setBidderAadhaar(bidder.getBidderFullName() + bidderAadhaarfile.getOriginalFilename());
-		detailsbidder.setBidderTraderLicense(bidder.getBidderFullName() + bidderCertificatefile.getOriginalFilename());
-		detailsbidder.setBidderPan(bidder.getBidderFullName() + bidderPanfile.getOriginalFilename());
-		bidderServices.addBidder(bidder, detailsbidder, login);
-		try {
-			sendMailService.send(bidder.getLogin().getEmail(), "wellcome to kisaan humari jaan",
-					"Thanxs for registering with kisaanRSVP");
-			return "displaysusscess.jsp";
-		} catch (Exception e) {
-			model.put("mailthing", "couldnt send mail");
-			return "displaysusscess.jsp";
-		}
+
 	}
 
-	@RequestMapping(path = "/loginbidder.rsvp")
+	@RequestMapping(path = "/loginbidder.rsvp", method =RequestMethod.POST )
 	public String loginBidder(Login login, ModelMap model, HttpServletRequest request) throws kisaanException {
+		
 		Login loginBidder = bidderServices.loginBidder(login.getEmail(), login.getPassword());
 		Bidder bidder = bidderServices.fetchBidderInfo(loginBidder.getUserId());
+		
 		try {
-			model.put("bidinfo", bidder);
 			model.put("loggedBidder", bidder);
+			model.put("biddername", bidder.getBidderFullName());
 			return "bidderdashboard.jsp";
 		} catch (Exception e) {
-			return "HomePage.jsp";
+			// setHeaderToRefreshAfter5secondsand reason is invalid bidder credentials
+			e.printStackTrace();
+			return "BidderLogin.jsp";
 		}
 	}
-
-	@RequestMapping(path = "getcropsforsale.rsvp")
-	public String getcropforbids(ModelMap model) {
-		List<Crop> list=bidderServices.fetchAllCropsForSale();
-		model.put("listofcropss",list);
-		return "getcropsforsale.jsp";
+	
+	@RequestMapping(path= "/fetchallcrops.rsvp")
+	public String fetchAllCropsForSale(ModelMap model) {
+		List<Crop> crops = bidderServices.fetchAllCropsForSale();
+		model.put("cropsList", crops);
+		return "bidcrops.jsp"; 
 	}
-//	@RequestMapping(path = "/bidthecrop.rsvp",method = RequestMethod.POST)
-//	public void bidTheCrop(@RequestParam("bidthiscrop") int cropId,ModelMap model) {
-//		
-//		model.put("crop", cropId);
-//		
-//	}
-
-	@RequestMapping(path = "/bidding.rsvp",method = RequestMethod.POST)
-	public String addCropBiddingDeatils(@RequestParam("bidderid") int bidderId,@RequestParam("bidthiscrop") int cropId, @RequestParam("bid") int bidAmount,
+	
+	
+	@RequestMapping(path = "/bidding.rsvp")
+	public String addCropBiddingDeatils(@RequestParam("bidthiscrop") int cropId, @RequestParam("bidamount") int bidAmount,
 			ModelMap model) throws kisaanException {
 
-		System.out.println(cropId + " " + bidAmount);
+		Crop crop = bidderServices.fetchCropById(cropId);
 		BidDetails detailsOfABid = new BidDetails();
 		detailsOfABid.setBidAmount(bidAmount);
 		detailsOfABid.setBidStatus("active");
-		Bidder bidder = (Bidder) model.get("bidinfo");
+		Bidder bidder = (Bidder) model.get("loggedBidder");
 		detailsOfABid.setBidderBid(bidder);
 
-		Crop crop = bidderServices.fetchCropById(cropId);
 
 		detailsOfABid.setCropBid(crop);
 		bidderServices.addCropBiddingDeatils(detailsOfABid, crop);
-		model.put("msg", " Bid successfully placed ");
+		model.put("successfullbidmsg", " Bid successfully placed ");
 
 		List<Crop> crops = bidderServices.fetchAllCropsForSale();
 		model.put("cropsList", crops);
+		return "bidcrops.jsp";
+		
+		
+			
+		}
+		
+	
 
-		return "bidderdashboard.jsp";
-	}
-
+	
+	
 	@RequestMapping("/activebids.rsvp")
-	public void viewAllActiveBidsOfABidder(ModelMap model) {
-
+	public String viewAllActiveBidsOfABidder(ModelMap model) {
+		
 		Bidder bidder = (Bidder) model.get("loggedBidder");
+				
 		List<BidDetails> bidDetails = bidderServices.viewAllActiveBidsOfABidder(bidder.getBidderId());
 		model.put("activeBidDetails", bidDetails);
+		System.out.println(bidDetails.size());
+		return "viewyourbids.jsp";
 
 	}
-
+	
 	@RequestMapping("/unsuccessfulbids.rsvp")
-	public void viewAllUnsuccessfulBidsOfABidder(ModelMap model) {
-
+	public String viewAllUnsuccessfulBidsOfABidder(ModelMap model) {
+		
 		Bidder bidder = (Bidder) model.get("loggedBidder");
 		List<BidDetails> bidDetails = bidderServices.viewAllUnsuccessfulBidsOfABidder(bidder.getBidderId());
 		model.put("unsuccessfulBidDetails", bidDetails);
-
+		return "viewyourbids.jsp";
 	}
-
+	
 	@RequestMapping("/successfulbids.rsvp")
-	public void viewAllSuccessfulBidsOfABidder(ModelMap model) {
-
+	public String viewAllSuccessfulBidsOfABidder(ModelMap model) {
+		
 		Bidder bidder = (Bidder) model.get("loggedBidder");
 		List<BidDetails> bidDetails = bidderServices.viewAllSuccessfulBidsOfABidder(bidder.getBidderId());
 		model.put("successfulBidDetails", bidDetails);
-
+		return "viewyourbids.jsp";
+	}
+	
+	@RequestMapping(path="logoutbidder.rsvp")
+	public String logoutBidder(HttpSession session,ModelMap model) {
+		session.invalidate();
+		model.put("logoutmsg","logged out successfully");
+		return "HomePage.jsp";
 	}
 }

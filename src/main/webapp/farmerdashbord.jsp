@@ -149,7 +149,7 @@ display: inline-table;
 <body>
 <a href="dashboard.rsvp"><button class="tablink">Home Page</button></a>
 <button class="tablink" onclick="openFunction('AboutUs', this, 'green')" >AboutUs</button>
-<a href="HomePage.jsp"><button class="tablink">Logout ${ Session.Abandon }</button></a>
+<a href="logoutbidder.rsvp"><button class="tablink">Logout </button></a>
 <button class="tablink" onclick="openFunction('ContactUs', this, 'green')" >Contact Us</button>
 <button class="tablink" onclick="openFunction('Insurance', this, 'green')" >Insurance</button>
 <div id="Insurance" class="tabcontent1">

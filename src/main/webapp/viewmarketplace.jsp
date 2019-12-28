@@ -64,7 +64,7 @@ tr:nth-child(even){background-color: #f2f2f2}
 <body>
 <a href="dashboard.rsvp"><button class="tablink">Home Page</button></a>
 <button class="tablink" onclick="openFunction('AboutUs', this, '')" >AboutUs</button>
-<a href="HomePage.jsp"><button class="tablink">Logout ${ Session.invalidate() }</button></a>
+<a href="logoutbidder.rsvp"><button class="tablink">Logout</button></a>
 <button class="tablink" onclick="openFunction('ContactUs', this, '')" >Contact Us</button>
 
 
