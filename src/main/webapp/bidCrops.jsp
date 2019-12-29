@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
-<style type="src/main/webapp/css/biddernavigation.css"></style>
+<title>Bid Crops</title>
+<style type="src/main/webapp/css/bidderNavigation.css"></style>
 <script>
 	var cropId,currentBidAmount; 
 	
@@ -17,7 +17,7 @@
 	
 	
 	function doSubmit(){
-		var amount=document.getElementsByName('bidamount')[0].value;
+		var amount=document.getElementsByName('bidAmount')[0].value;
 		
 		var y= amount%100;
 		if(amount < currentBidAmount || y!=0)
@@ -31,7 +31,7 @@
 	
 	function myTest() {
 		
-		var ele = document.getElementsByName('bidthiscrop'); 
+		var ele = document.getElementsByName('bidThisCrop'); 
          
          for(i = 0; i < ele.length; i++) { 
              if(ele[i].checked) 
@@ -64,13 +64,13 @@ th, td {
 <body>
 
 	<ul>
-		<li><a href="bidderdashboard.jsp">Home</a></li>
-		<li><a href="fetchallcrops.rsvp">Bid Crops</a></li>
-		<li><a href="viewyourbids.jsp">View Your Biddings</a></li>
-		<li><a href="logoutbidder.rsvp">Logout </a></li>
+		<li><a href="bidderDashboard.jsp">Home</a></li>
+		<li><a href="fetchAllCrops.rsvp">Bid Crops</a></li>
+		<li><a href="viewYourBids.jsp">View Your Biddings</a></li>
+		<li><a href="logoutBidder.rsvp">Logout </a></li>
 	</ul>
 
-	<h3>${ successfullbidmsg }</h3>
+	<h3>${ successfullBidMsg }</h3>
 	<h4 style="margin-left: 45%">List Of Crops To Bid</h4>
 
 	<form action="bidding.rsvp" onsubmit="return doSubmit()">
@@ -85,7 +85,7 @@ th, td {
 			</tr>
 			<c:forEach items="${ cropsList }" var="crop">
 				<tr>
-					<td><input type="radio"  name="bidthiscrop"
+					<td><input type="radio"  name="bidThisCrop"
 						value="${ crop.cropId }" /></td>
 					<td>${ crop.cropType }</td>
 					<td>${ crop.cropName }</td>
@@ -101,7 +101,7 @@ th, td {
 			<div class="modal-contents">
 				<button type="button" class="close" value="+"></button>
 				<h2>Enter Amount greater than the Current Bid</h2>
-				<input class="input1" type="number" name="bidamount"/>
+				<input class="input1" type="number" name="bidAmount"/>
 				<p style="display: none;" id="p1">Please enter amount greater than the current bid amount and in	multiples of 100..</p>
 							
 				<input type="submit" value="Submit" />

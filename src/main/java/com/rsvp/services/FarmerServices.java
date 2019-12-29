@@ -17,7 +17,7 @@ import com.rsvp.entity.DetailsFarmer;
 import com.rsvp.entity.Farmer;
 import com.rsvp.entity.Insurance;
 import com.rsvp.entity.Login;
-import com.rsvp.exception.kisaanException;
+import com.rsvp.exception.KisaanException;
 import com.rsvp.repository.FarmerRepository;
 
 @Service
@@ -29,12 +29,12 @@ public class FarmerServices {
 	@Autowired
 	private SendMailService sendMailService;
 	
-	public Login login(String email, String password) throws kisaanException {
+	public Login login(String email, String password) throws KisaanException {
 		try {
 			Login login=farmerRepository.login(email,password);
 			return login;
 		}catch (Exception e) {
-			throw new kisaanException("Invalid Farmer login Credentional");
+			throw new KisaanException("Invalid Farmer login Credentional");
 		}
 	}
 	
@@ -46,44 +46,44 @@ public class FarmerServices {
 		return farmerRepository.fetchFarmerInfo(userId);
 	}
 	
-	public Login forgotPassword(String email) throws kisaanException {
+	public Login forgotPassword(String email) throws KisaanException {
 		try {
 		return farmerRepository.forgotPassword(email);
 		}catch (Exception e) {
-			throw new kisaanException("Email not found");
+			throw new KisaanException("Email not found");
 		}
 	}
 	
-	public void saveFarmer(Farmer farmer,Login login,DetailsFarmer detailsFarmer) throws kisaanException {
+	public void saveFarmer(Farmer farmer,Login login,DetailsFarmer detailsFarmer) throws KisaanException {
 		
 		try {
 			farmerRepository.saveFarmer(farmer,login,detailsFarmer);
 			}catch (Exception e) {
-				throw new kisaanException("couldn't save a farmer");
+				throw new KisaanException("couldn't save a farmer");
 			}
 	}
 	
-	public void placeSellRequest(Crop crop,int farmerId) throws kisaanException {
+	public void placeSellRequest(Crop crop,int farmerId) throws KisaanException {
 		try {
 		farmerRepository.placeSellRequest(crop,farmerId);
 		}catch (Exception e) {
-			throw new kisaanException("couldn't place sell request");
+			throw new KisaanException("couldn't place sell request");
 		}
 	}
 	
-	public void applyInsurance(Insurance insurance) throws kisaanException {
+	public void applyInsurance(Insurance insurance) throws KisaanException {
 		try{
 			farmerRepository.applyInsurance(insurance);
 		}catch (Exception e) {
-			throw new kisaanException("couldnt apply for insurance");
+			throw new KisaanException("couldnt apply for insurance");
 		}
 	}
 	
-	public void claimInsurance(Insurance insurance) throws kisaanException {
+	public void claimInsurance(Insurance insurance) throws KisaanException {
 		try{
 			farmerRepository.claimInsurance(insurance);
 		}catch (Exception e) {
-			throw new kisaanException("couldnt claim insurance");
+			throw new KisaanException("couldnt claim insurance");
 		}
 	}
 	public void updateCurrentbidRequest(Crop crop,int farmerId) {
@@ -124,35 +124,35 @@ public class FarmerServices {
 		return list;
 	}
 	
-	public List<Crop> viewSoldCropHistory(int farmerId) throws kisaanException{
+	public List<Crop> viewSoldCropHistory(int farmerId) throws KisaanException{
 		try {
 		return farmerRepository.viewSoldCropHistory(farmerId);
 		}catch (Exception e) {
-			throw new kisaanException("couldnt view history of sold crops");
+			throw new KisaanException("Couldn't view history of sold crops");
 		}
 	}
 	
-	public List<Crop> viewMarketPlaceByFarmerId(int farmerId) throws kisaanException {
+	public List<Crop> viewMarketPlaceByFarmerId(int farmerId) throws KisaanException {
 		try {
 		return farmerRepository.viewMarketPlaceByFarmerId(farmerId);
 		} catch (Exception e) {
-			throw new kisaanException("couldnt view market history for you ");
+			throw new KisaanException("Couldn't view market history for you ");
 		}
 	}
 	
-	public Crop viewMarketPlaceByCropId(int cropId) throws kisaanException {
+	public Crop viewMarketPlaceByCropId(int cropId) throws KisaanException {
 		try {
 		return farmerRepository.viewMarketPlaceByCropId(cropId);
 		} catch (Exception e) {
-			throw new kisaanException("couldnt view market place for this paticular crop");
+			throw new KisaanException("Couldn't view market place for this particular crop");
 		}
 }
 	
-	public List<BidDetails> viewMarketPlaceby(int cropid) throws kisaanException {
+	public List<BidDetails> viewMarketPlaceby(int cropid) throws KisaanException {
 		try{
 			return farmerRepository.viewMarketPlaceby(cropid);
 		}catch (Exception e) {
-			throw new kisaanException("couldnt find bid details for this paticular crop");
+			throw new KisaanException("Couldn't find bid details for this particular crop");
 		}
 	}
 	

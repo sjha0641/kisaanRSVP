@@ -116,12 +116,12 @@ tr:nth-child(even){background-color: #f2f2f2}</style>
 </head>
 <body>
 <div>
-<a href="bidderdashboard.jsp"><button class="tablink1">Home Page</button></a>
+<a href="bidderDashboard.jsp"><button class="tablink1">Home Page</button></a>
 <button class="tablink" onclick="openFunction('AboutUs', this, 'green')" >AboutUs</button>
-<a href="HomePage.jsp"><button class="tablink">Logout ${ Session.Abandon }</button></a>
+<a href="homePage.jsp"><button class="tablink">Logout ${ Session.Abandon }</button></a>
 <button class="tablink" onclick="openFunction('ContactUs', this, 'green')" >Contact Us</button>
-<a href="getcropsforsale.rsvp"><button class="tablink">Bid Crops</button></a>
-<button class="tablink2" onclick="window.location.href = 'viewyourbids.jsp';" >View All Your Bids</button>
+<a href="getCropsForSale.rsvp"><button class="tablink">Bid Crops</button></a>
+<button class="tablink2" onclick="window.location.href = 'viewYourBids.jsp';" >View All Your Bids</button>
 </div>
 <h1>${ loggedBidder.bidderFullName }</h1>
 <h1>${ bidinfo.bidderId }</h1>
@@ -137,7 +137,7 @@ tr:nth-child(even){background-color: #f2f2f2}</style>
       <th>Bid Amount</th>
       <th>Bid</th>
     </tr>
-  <c:forEach items="${ listofcropss }" var="crop">
+  <c:forEach items="${ listOfCrops }" var="crop">
     <tr>
     <td><c:out value="${crop.cropLastDateForBid}" /></td>
       <td><c:out value="${crop.cropType}" /></td>

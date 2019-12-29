@@ -72,45 +72,13 @@ input[type=submit]:hover {
 </head>
 <body>
 <div class="container">
-  <form action="applyforinsurance.rsvp" method="post">
+  <form action="forgotPasswordGeneral.rsvp" method="post" enctype="multipart/form-data">
     <div class="row">
       <div class="col-25">
-        <label for="season">Season</label>
+        <label for="email">email</label>
       </div>
       <div class="col-75">
-        <input type="text" id="season" name="Season" placeholder="which season is it..">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="year">Year</label>
-      </div>
-      <div class="col-75">
-        <input type="date" id="year" name="year" placeholder="current year..">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="cropName">Crop Name</label>
-      </div>
-      <div class="col-75">
-        <input type="text" id="cropName" name="cropName" placeholder="Your Crop Name..">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="sumInsured">Sum Insured</label>
-      </div>
-      <div class="col-75">
-       <input type="number" id="sumInsured" name="sumInsured" placeholder="Sum Insured">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="area">Area</label>
-      </div>
-      <div class="col-75">
-       <input type="number" id="area" name="area" placeholder="Your field area">
+        <input type="email" id="email" name="email" placeholder="Your email..">
       </div>
     </div>
     <div class="row">
@@ -118,5 +86,7 @@ input[type=submit]:hover {
     </div>
   </form>
 </div>
+</body>
+</html>
 </body>
 </html>

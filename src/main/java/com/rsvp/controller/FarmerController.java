@@ -29,13 +29,13 @@ import com.rsvp.entity.DetailsFarmer;
 import com.rsvp.entity.Farmer;
 import com.rsvp.entity.Insurance;
 import com.rsvp.entity.Login;
-import com.rsvp.exception.kisaanException;
+import com.rsvp.exception.KisaanException;
 import com.rsvp.services.FarmerServices;
 import com.rsvp.services.SendMailService;
 import com.sun.mail.iap.Response;
 
 @Controller
-@SessionAttributes({"farmerInFo","logincredentials","listofnonactivecrop","listofunsoldcrops"})
+@SessionAttributes({"farmerInFo","loginCredentials","listOfNonActiveCrop","listOfUnsoldCrops"})
 public class FarmerController {
 
 	@Autowired
@@ -44,22 +44,22 @@ public class FarmerController {
 	@Autowired
 	private SendMailService sendMailService;
 	
-	@RequestMapping(path = "/loginfarmers.rsvp", method = RequestMethod.POST)
+	@RequestMapping(path = "/loginFarmers.rsvp", method = RequestMethod.POST)
 	public String loginFarmer(Login login, ModelMap model) {
 		Login loginFarmer;
 		try {
 			loginFarmer = farmerServices.login(login.getEmail(), login.getPassword());
 			Farmer farmer=farmerServices.fetchFarmerInfo(loginFarmer.getUserId());
-			List<Crop> listofnonactivecrops=farmerServices.nonactivecrops(farmer.getFarmerId());
-			List<Crop> listofunsoldCrops=farmerServices.UnSoldcrops(farmer.getFarmerId());
-			model.put("listofnonactivecrop", listofnonactivecrops);
-			model.put("listofunsoldcrops", listofunsoldCrops);
-			model.put("logincredentials", loginFarmer);
+			List<Crop> listOfNonActiveCrops=farmerServices.nonactivecrops(farmer.getFarmerId());
+			List<Crop> listOfUnsoldCrops=farmerServices.UnSoldcrops(farmer.getFarmerId());
+			model.put("listOfNonActiveCrop", listOfNonActiveCrops);
+			model.put("listOfUnsoldCrops", listOfUnsoldCrops);
+			model.put("loginCredentials", loginFarmer);
 			model.put("farmerInFo", farmer);
-			return "farmerdashbord.jsp";
-		} catch (kisaanException e) {
-			model.put("invalidcredentials", "failed to login");
-			return "HomePage.jsp";
+			return "farmerDashboard.jsp";
+		} catch (KisaanException e) {
+			model.put("invalidCredentials", "failed to login");
+			return "homePage.jsp";
 		}
 		
 	}
@@ -67,27 +67,27 @@ public class FarmerController {
 	@RequestMapping(path = "/dashboard.rsvp")
 	public String dashboardthings(ModelMap model) {
 		Farmer farmer=(Farmer) model.get("farmerInFo");
-		List<Crop> listofnonactivecrops=farmerServices.nonactivecrops(farmer.getFarmerId());
-		List<Crop> listofunsoldCrops=farmerServices.UnSoldcrops(farmer.getFarmerId());
-		model.put("listofunsoldcrops", listofunsoldCrops);
-		model.put("listofnonactivecrop", listofnonactivecrops);
-		return"farmerdashbord.jsp";
+		List<Crop> listOfNonActiveCrops=farmerServices.nonactivecrops(farmer.getFarmerId());
+		List<Crop> listOfUnsoldCrops=farmerServices.UnSoldcrops(farmer.getFarmerId());
+		model.put("listOfUnsoldCrops", listOfUnsoldCrops);
+		model.put("listOfNonActiveCrop", listOfNonActiveCrops);
+		return"farmerDashboard.jsp";
 	}
 	
-	@RequestMapping(path = "/resetpasswordfarmer.rsvp", method = RequestMethod.POST)
+	@RequestMapping(path = "/resetPasswordFarmer.rsvp", method = RequestMethod.POST)
 	public String resetpassword(Login login) {
 		farmerServices.resetpassword(login);
-		return "typeofuser.jsp";
+		return "typeOfUser.jsp";
 		
 	}
 	
-	@RequestMapping(path = "/forgotpasswordgeneral.rsvp",method = RequestMethod.POST)
-	public String forgotPassword(@RequestParam("email") String emial,ModelMap model) throws kisaanException{
+	@RequestMapping(path = "/forgotPasswordGeneral.rsvp",method = RequestMethod.POST)
+	public String forgotPassword(@RequestParam("email") String emial,ModelMap model) throws KisaanException{
 		Login loginGeneral= farmerServices.forgotPassword(emial);
 		//sendMailService.send(loginFarmer.getEmail(), "your password is reterived",loginFarmer.password );
 		//sendMailService.send(loginFarmer.getEmail(), "your password is reterived", "http://localhost:9090/kisaanRSVP/resetpasswordsample.jsp");
 		model.put("passwordGeneral", loginGeneral);
-		return "gotpasswordback.jsp";
+		return "gotPasswordBack.jsp";
 	}
 
 	@RequestMapping(path = "/registrationFarmer.rsvp", method = RequestMethod.POST)
@@ -95,10 +95,10 @@ public class FarmerController {
 			@RequestParam("farmerAadhaarfile") MultipartFile farmerAadhaarfile,
 			@RequestParam("farmerCertificatefile") MultipartFile farmerCertificatefile,
 			@RequestParam("farmerPanfile") MultipartFile farmerPanfile, ModelMap model)
-			throws kisaanException, Exception {
+			throws KisaanException, Exception {
 		
 		String pathAadhar = "d:/uploads/aadhar/";
-		String pathCertificate = "d:/uploads/cartificate/";
+		String pathCertificate = "d:/uploads/certificate/";
 		String pathPan = "d:/uploads/pan/";
 		String Aadhar = pathAadhar + farmer.getFarmerFullName()+farmerAadhaarfile.getOriginalFilename();
 		String Certificate = pathCertificate + farmer.getFarmerFullName()+ farmerCertificatefile.getOriginalFilename();
@@ -115,16 +115,16 @@ public class FarmerController {
 		detailsFarmer.setFarmerCertificate(farmer.getFarmerFullName()+ farmerPanfile.getOriginalFilename());
 		farmerServices.saveFarmer(farmer, login, detailsFarmer);
 		try {
-		sendMailService.send(farmer.getLogin().getEmail(), "wellcome to kisaan humari jaan", "Thanxs for registering with kisaanRSVP");
-		return "displaysusscess.jsp";
+		sendMailService.send(farmer.getLogin().getEmail(), "Welcome to Kisaan Humari Jaan", "Thanxs for Registering with kisaanRSVP");
+		return "displaySuccess.jsp";
 		}catch (Exception e) {
-			model.put("mailthing", "couldnt send mail");
-			return "displaysusscess.jsp";
+			model.put("mailthing", "couldn't send mail");
+			return "displaySuccess.jsp";
 		}
 	}
 	
-	@RequestMapping(path = "/sellyourcrop.rsvp", method = RequestMethod.POST)
-	public String sellYourCrop(Login login,Crop crop,ModelMap model,@RequestParam("soilphcertificateFile") MultipartFile cropSoilPHCertificate) throws kisaanException {
+	@RequestMapping(path = "/sellYourCrop.rsvp", method = RequestMethod.POST)
+	public String sellYourCrop(Login login,Crop crop,ModelMap model,@RequestParam("soilphcertificateFile") MultipartFile cropSoilPHCertificate) throws KisaanException {
 		String pathSoilPHCertificate = "d:/uploads/SoilPHCertificate/";
 		String SoilPHCertificate = pathSoilPHCertificate + login.getEmail()+cropSoilPHCertificate.getOriginalFilename();
 		try {
@@ -138,34 +138,34 @@ public class FarmerController {
 		return "redirect:/dashboard.rsvp";
 	}
 	
-	@RequestMapping(path = "/viewsoldcrophistory.rsvp")
-	public String viewSoldCropHistory(ModelMap model) throws kisaanException {
+	@RequestMapping(path = "/viewSoldCropHistory.rsvp")
+	public String viewSoldCropHistory(ModelMap model) throws KisaanException {
 		Farmer farmer=(Farmer) model.get("farmerInFo");
 		List<Crop> list=farmerServices.viewSoldCropHistory(farmer.getFarmerId());
-		model.put("ListOfCrops",list);
-		return "viewsoldcrophistory.jsp";
+		model.put("listOfCrops",list);
+		return "viewSoldCropHistory.jsp";
 	}
 	
-	@RequestMapping(path = "/viewmarketplace.rsvp")
+	@RequestMapping(path = "/viewMarketPlace.rsvp")
 	public String viewMarketPlaceByFarmerId(ModelMap model){
 		Farmer farmer=(Farmer) model.get("farmerInFo");
 		List<Crop> cropsByFarmerId;
 		try {
 			cropsByFarmerId = farmerServices.viewMarketPlaceByFarmerId(farmer.getFarmerId());
-			model.put("listofcropsbyfarmerid", cropsByFarmerId);
-			return "viewmarketplace.jsp";
-		} catch (kisaanException e) {
-			model.put("errortab","nothing found for this farmer");
-			return "viewmarketplace.jsp";
+			model.put("listOfCropsByFarmerId", cropsByFarmerId);
+			return "viewMarketPlace.jsp";
+		} catch (KisaanException e) {
+			model.put("errorTab","nothing found for this farmer");
+			return "viewMarketPlace.jsp";
 		}
 	}
 	
 	@RequestMapping(path = "/view.rsvp")
 	public String viewMarketPlaceForCropId(@RequestParam("cropId")int cropid,ModelMap model) {
-		Crop cropbyCropId;
+		Crop cropByCropId;
 		int maxBid;
 		try {
-			cropbyCropId = farmerServices.viewMarketPlaceByCropId(cropid);
+			cropByCropId = farmerServices.viewMarketPlaceByCropId(cropid);
 			List<BidDetails> bidDetailsForCropId=farmerServices.viewMarketPlaceby(cropid);
 			List<Integer> amount=new ArrayList<Integer>();
 			for(BidDetails bid:bidDetailsForCropId) {
@@ -173,47 +173,47 @@ public class FarmerController {
 			}
 			try {
 			maxBid=Collections.max(amount);
-			cropbyCropId.setCropCurrentBid(maxBid);
-			cropbyCropId.setCropActiveStatus("yes");
+			cropByCropId.setCropCurrentBid(maxBid);
+			cropByCropId.setCropActiveStatus("yes");
 			Farmer farmer=(Farmer) model.get("farmerInFo");
-			LocalDate currentdate=LocalDate.now();
-			if(currentdate.compareTo(cropbyCropId.getCropLastDateForBid())>0) {
-				cropbyCropId.setCropSoldPrice(maxBid);
-				cropbyCropId.setCropSoldStatus("yes");
+			LocalDate currentDate=LocalDate.now();
+			if(currentDate.compareTo(cropByCropId.getCropLastDateForBid())>0) {
+				cropByCropId.setCropSoldPrice(maxBid);
+				cropByCropId.setCropSoldStatus("yes");
 			}
-			farmerServices.updateCurrentbidRequest(cropbyCropId, farmer.getFarmerId());
-			model.put("cropbycropid", cropbyCropId);
-			model.put("bidDetailsbycropid", bidDetailsForCropId);
-			model.put("currentbidamount",maxBid);
-			return "viewcropmarketplace.jsp";
+			farmerServices.updateCurrentbidRequest(cropByCropId, farmer.getFarmerId());
+			model.put("cropByCropId", cropByCropId);
+			model.put("bidDetailsByCropId", bidDetailsForCropId);
+			model.put("currentBidAmount",maxBid);
+			return "viewCropMarketPlace.jsp";
 			}catch (Exception e) {
 				maxBid=0;
-				model.put("cropbycropid", cropbyCropId);
-				model.put("bidDetailsbycropid", bidDetailsForCropId);
-				model.put("currentbidamount",maxBid);
-				return "viewcropmarketplace.jsp";
+				model.put("cropByCropId", cropByCropId);
+				model.put("bidDetailsByCropId", bidDetailsForCropId);
+				model.put("currentBidAmount",maxBid);
+				return "viewCropMarketPlace.jsp";
 			}
 			
-		} catch (kisaanException e) {
+		} catch (KisaanException e) {
 			model.put("errort","nothing found for this crop");
-			return "viewcropmarketplace.jsp";
+			return "viewCropMarketPlace.jsp";
 		}
 		
 	}
 
-	@RequestMapping(path = "/applyforinsurance.rsvp")
+	@RequestMapping(path = "/applyForInsurance.rsvp")
 	public String applyinsurance(Insurance insurance,ModelMap model){
 		try {
 			farmerServices.applyInsurance(insurance);
 			model.put("ins", "you have applied it");
-			return "farmerdashbord.jsp";
-		} catch (kisaanException e) {
+			return "farmerDashboard.jsp";
+		} catch (KisaanException e) {
 			model.put("ins", "failed to apply");
-			return "farmerdashbord.jsp";
+			return "farmerDashboard.jsp";
 		}
 	}
 	
-	@RequestMapping(path = "/claiminsurance.rsvp")
+	@RequestMapping(path = "/claimInsurance.rsvp")
 	public String claiminsurance(Insurance insurance,ModelMap model) {
 		return "";
 	}

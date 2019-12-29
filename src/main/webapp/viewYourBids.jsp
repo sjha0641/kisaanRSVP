@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
-<style type="src/main/webapp/css/biddernavigation.css"> </style>
+<title>View Your Bids</title>
+<style type="src/main/webapp/css/bidderNavigation.css"> </style>
 <style>
 .maindiv {
 	display: block;
@@ -59,23 +59,23 @@ float:left;
 <body>
 	
 	<ul>
-		<li><a href="bidderdashboard.jsp">Home</a></li>
-		<li><a href="fetchallcrops.rsvp">Bid Crops</a></li>
-		<li><a href="viewyourbids.jsp">View Your Biddings</a></li>
-		<li><a href="logoutbidder.rsvp">Logout </a></li>
+		<li><a href="bidderDashboard.jsp">Home</a></li>
+		<li><a href="fetchAllCrops.rsvp">Bid Crops</a></li>
+		<li><a href="viewYourBids.jsp">View Your Biddings</a></li>
+		<li><a href="logoutBidder.rsvp">Logout </a></li>
 	</ul>
 		
 	<h2 style="margin-left:45%">List Of All Bids By You</h2>
 
 		<div class="buttondiv">
 
-			<form style="margin-left:150px;" action="activebids.rsvp">
+			<form style="margin-left:150px;" action="activeBids.rsvp">
 				<input style="width:200px; border-radius:5px; background-color: #FFBD33;" type="submit" value="view  Your Active Bids">
 			</form>
-			<form style="margin-left:250px;" action="successfulbids.rsvp">
+			<form style="margin-left:250px;" action="successfulBids.rsvp">
 				<input style="width:200px; border-radius:5px; background-color: #FF5733;" type="submit" value="view  Your Successfull Bids">
 			</form>
-			<form style="margin-left:250px;" action="unsuccessfulbids.rsvp">
+			<form style="margin-left:250px;" action="unsuccessfulBids.rsvp">
 				<input style="width:200px; border-radius:5px; background-color: #DAF7A6;" type="submit" value="view  Your Unsuccessfull Bids">
 			</form>
 

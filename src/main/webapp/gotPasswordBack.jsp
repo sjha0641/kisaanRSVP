@@ -239,13 +239,13 @@ background-color: #4CAF50;
 			</div>
 			<br> <br> <br>
 			<div class="container" style="background-color: #f1f1f1">
-				<a href="FarmerRegistration.jsp"><button type="button" class="re">Register for New Account</button></a>
-				<span class="psw">Forgot <a href="forgotpasswordgeneral.jsp">password?</a></span>
+				<a href="farmerRegistration.jsp"><button type="button" class="re">Register for New Account</button></a>
+				<span class="psw">Forgot <a href="forgotPasswordGeneral.jsp">password?</a></span>
 			</div>
 		</form>
 	</div>
 <div id="id02" class="modal">
-		<form class="modal-content animate" action="loginfarmers.rsvp"
+		<form class="modal-content animate" action="loginFarmers.rsvp"
 			method="post">
 			<br> <br> <br>
 			<div class="container">
@@ -262,8 +262,8 @@ background-color: #4CAF50;
 
 			<br> <br> <br>
 			<div class="container" style="background-color: #f1f1f1">
-				<a href="FarmerRegistration.jsp"><button type="button" class="re" >Register for New Account</button></a>
-				<span class="psw">Forgot <a href="forgotpasswordgeneral.jsp">password?</a></span>
+				<a href="farmerRegistration.jsp"><button type="button" class="re" >Register for New Account</button></a>
+				<span class="psw">Forgot <a href="forgotPasswordGeneral.jsp">password?</a></span>
 			</div>
 		</form>
 	</div>
@@ -279,7 +279,7 @@ background-color: #4CAF50;
 <!-- ************************************************************************************************************ -->
 <div id="Login" class="tabcontent">
 <center>
-<h1>${ invalidcredentials }</h1>
+<h1>${ invalidCredentials }</h1>
 	<button class="login1button" onclick="document.getElementById('id01').style.display='block'"
 		style="width: auto;">Farmer Login</button>
 	<button class="login2button" onclick="document.getElementById('id02').style.display='block'"

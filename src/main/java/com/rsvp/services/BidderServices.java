@@ -14,7 +14,7 @@ import com.rsvp.entity.BidDetails;
 import com.rsvp.entity.Bidder;
 import com.rsvp.entity.Crop;
 import com.rsvp.entity.Login;
-import com.rsvp.exception.kisaanException;
+import com.rsvp.exception.KisaanException;
 import com.rsvp.repository.BidderRepository;
 
 @Service 
@@ -26,24 +26,24 @@ public class BidderServices {
 	@Autowired
 	BidEndingTime bidEndingTime;
 
-	public Bidder addFarmer(Bidder bidder) throws kisaanException {
+	public Bidder addFarmer(Bidder bidder) throws KisaanException {
 
 		try {
 			Bidder bidder1 = bidderRepository.addBidder(bidder);
 			return bidder1;
 		} catch (Exception e) {
-			throw new kisaanException("Unable to Register.Please try again with valid credentials.", e);
+			throw new KisaanException("Unable to Register.Please try again with valid credentials.", e);
 		} 
 	}
 
-	public Login loginBidder(String email, String password) throws kisaanException {
+	public Login loginBidder(String email, String password) throws KisaanException {
 
 		try {
 			Login loginBidder = bidderRepository.loginBidder(email, password);
 			return loginBidder;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new kisaanException("Unable to Login.Please try again!!!", e);
+			throw new KisaanException("Unable to Login.Please try again!!!", e);
 		}
 
 	}
@@ -66,12 +66,12 @@ public class BidderServices {
 		return bidderRepository.fetchBidderInfo(userId);
 	}
 
-	public void addCropBiddingDeatils(BidDetails detailsOfABid, Crop crop) throws kisaanException {
+	public void addCropBiddingDeatils(BidDetails detailsOfABid, Crop crop) throws KisaanException {
 
 		try {
 			bidderRepository.addCropBiddingDetails(detailsOfABid, crop);
 		} catch (Exception e) {
-			throw new kisaanException("Unable to Add biiding details.Please try again for bidding", e);
+			throw new KisaanException("Unable to Add biiding details.Please try again for bidding", e);
 		}
 	}
 

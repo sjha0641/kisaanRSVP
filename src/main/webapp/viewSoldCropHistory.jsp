@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+    <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,22 +16,7 @@ button {
 	cursor: pointer;
 	width: 100%;
 }
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  width: 100%;
-  border: 1px solid #ddd;
-}
 
-th, td {
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even){background-color: #f2f2f2}
-body {
-background-color: #4CAF50;
-}
 button:hover {
 	opacity: 0.8;
 }
@@ -60,52 +45,63 @@ button:hover {
   padding: 50px;
   text-align: center;
 }
-#AboutUs {background-color:#4CAF50;}
-#ContactUs {background-color:#4CAF50;}
-#HomePage {background-color:#4CAF50;}
-#Login {background-color:#4CAF50;}
+table { 
+  width: 100%; 
+  border-collapse: collapse; 
+}
+/* Zebra striping */
+tr:nth-of-type(odd) { 
+  background: #eee; 
+}
+th { 
+  background: #333; 
+  color: white; 
+  font-weight: bold; 
+}
+td, th { 
+  padding: 6px; 
+  border: 1px solid #ccc; 
+  text-align: left; 
+}
+#AboutUs {background-color:green;}
+#ContactUs {background-color:green;}
+#HomePage {background-color:green;}
 </style>
 </head>
 <body>
 <a href="dashboard.rsvp"><button class="tablink">Home Page</button></a>
 <button class="tablink" onclick="openFunction('AboutUs', this, 'green')" >AboutUs</button>
-<a href="logoutbidder.rsvp"><button class="tablink">Logout</button></a>
+<a href="logoutBidder.rsvp"><button class="tablink">Logout</button></a>
 <button class="tablink" onclick="openFunction('ContactUs', this, 'green')" >Contact Us</button>
 
 
 <a> UserId:${ farmerInFo.farmerId }</a>&nbsp &nbsp &nbsp
 <a> Name:${ farmerInFo.farmerFullName }</a><br>
-<!-- ********************************************************************************** -->
-<!-- ********************************************************************************** -->
-							<!-- tables of view of crops here -->
-<br/>
- <h1> ${ errort }</h1>	 
-  <br/>
-<table><tr>
-<th>Crop Type</th>
-<th>Crop Name</th>
-<th>Base Price</th></tr>
+
+<table>
 <tr>
-<td>${cropbycropid.cropType }</td>
-<td>${cropbycropid.cropName }</td>
-<td>${cropbycropid.cropBasicPrice }</td>
-</tr>
-<tr><th>Current Bid</th></tr>
-<tr><td>${ currentbidamount }</td></tr>
-<tr><th>Previous Bid</th></tr>
-<c:forEach items="${ bidDetailsbycropid }" var="bid">
-    <tr>
-    <td><c:out value="${bid.bidAmount}"/></td>
+      <th>Last Day for Bid</th>
+      <th>Crop Name</th>
+      <th>Quantity</th>
+      <th>MSP</th>
+      <th>Sold Price</th>
+      <th>Total Price</th>
+      <th>SoldStatus</th>
     </tr>
-</c:forEach>
+  <c:forEach items="${ listOfCrops }" var="crop">
+    <tr>
+    <td><c:out value="${crop.cropLastDateForBid}" /></td>
+      <td><c:out value="${crop.cropName}" /></td>
+      <td><c:out value="${crop.cropQuantity}" /></td>
+      <td><c:out value="${crop.cropBasicPrice}" /></td>
+      <td><c:out value="${crop.cropSoldPrice}" /></td>
+      <td><c:out value="${crop.cropSoldPrice*crop.cropQuantity}" /></td>
+      <td><c:out value="${crop.cropSoldStatus}" /></td>
+    </tr>
+  </c:forEach>
 </table>
-<!-- ********************************************************************************** -->
-<!-- ********************************************************************************** -->	
-	
-
-
-
-<div id="AboutUs" class="tabcontent">
+														
+<div id="AboutUs" class="tabcontent" style="center-bottom">
   <h1>AboutUs</h1>
   <p>We will change the feature with the help of <strong>Farmers</strong>.</p> 
 </div>

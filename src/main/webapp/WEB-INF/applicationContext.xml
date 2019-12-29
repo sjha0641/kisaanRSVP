@@ -20,7 +20,7 @@
 	
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE" /> 
-		<property name="username" value="hr" /> <property name="password" value="hr" />
+		<property name="username" value="system" /> <property name="password" value="bandariya" />
 		 
 	</bean>
 

@@ -149,12 +149,12 @@ display: inline-table;
 <body>
 <a href="dashboard.rsvp"><button class="tablink">Home Page</button></a>
 <button class="tablink" onclick="openFunction('AboutUs', this, 'green')" >AboutUs</button>
-<a href="logoutbidder.rsvp"><button class="tablink">Logout </button></a>
+<a href="logoutBidder.rsvp"><button class="tablink">Logout </button></a>
 <button class="tablink" onclick="openFunction('ContactUs', this, 'green')" >Contact Us</button>
 <button class="tablink" onclick="openFunction('Insurance', this, 'green')" >Insurance</button>
 <div id="Insurance" class="tabcontent1">
 <a> ${ ins }</a>
-	<button class="login1button" onclick="window.location.href = 'applyforinsurance.jsp';"
+	<button class="login1button" onclick="window.location.href = 'applyForInsurance.jsp';"
 		style="width: auto;">Apply for Insueance</button>
 	<button class="login2button" onclick="window.location.href = 'claimInsurance.jsp';"
 		style="width: auto;">Claim Insurance</button>
@@ -185,9 +185,9 @@ display: inline-table;
 </table>
 </div> --%>
 <div class="btn-group" style="float: left;">
-<button onclick="window.location.href = 'sellyourcropfarmer.jsp';">Sell Your Crop</button>
-<button onclick="window.location.href = 'viewmarketplace.rsvp';">View Market Place</button>
-<button onclick="window.location.href = 'viewsoldcrophistory.rsvp';">View Sold Crop History</button>
+<button onclick="window.location.href = 'sellYourCropFarmer.jsp';">Sell Your Crop</button>
+<button onclick="window.location.href = 'viewMarketPlace.rsvp';">View Market Place</button>
+<button onclick="window.location.href = 'viewSoldCropHistory.rsvp';">View Sold Crop History</button>
 </div>
 
 <div style="float: right;">
@@ -201,7 +201,7 @@ display: inline-table;
       <th>MSP</th>
       <th>Crop Sold Status</th>
     </tr>
-  <c:forEach items="${ listofunsoldcrops }" var="crop">
+  <c:forEach items="${ listOfUnsoldCrops }" var="crop">
     <tr>
       <td><c:out value="${crop.cropLastDateForBid}" /></td>
       <td><c:out value="${crop.cropType}" /></td>
@@ -225,7 +225,7 @@ display: inline-table;
       <th>MSP</th>
       <th>Crop Active Status</th>
     </tr>
-  <c:forEach items="${ listofnonactivecrop }" var="crop">
+  <c:forEach items="${ listOfNonActiveCrop }" var="crop">
     <tr>
     <td><c:out value="${crop.cropLastDateForBid}" /></td>
     <td><c:out value="${crop.cropType}" /></td>

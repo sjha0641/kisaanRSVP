@@ -91,7 +91,7 @@ input[type=submit]:hover {
     </div>
     <div class="row">
       <div class="col-25">
-        <label for="nameofinsuree">Name of insuree</label>
+        <label for="nameofinsuree">Name of Insuree</label>
       </div>
       <div class="col-75">
         <input type="text" id="nameofinsuree" name="nameOfInsuree" readonly value="${cc }" >
